@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Product;
 use Cart;
+use Illuminate\Support\Facades\Auth;
 
 class MenuComponent extends Component
 {
@@ -39,6 +40,12 @@ class MenuComponent extends Component
     {
         $products = Product::select('id','name','regulary_price','image','slug')->orderby('created_at','ASC')->get();
         $witems = Cart::instance('wishlist')->content()->pluck('id');
+
+        if(Auth::check())
+        {
+            Cart::instance('cart')->store(Auth::user()->email); // save cart to database using user email;
+        }
+
         return view('livewire.menu-component',['products'=>$products,'witems'=>$witems])->layout('layouts.base');
     }
 }

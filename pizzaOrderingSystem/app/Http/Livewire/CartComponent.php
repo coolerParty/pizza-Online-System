@@ -172,6 +172,12 @@ class CartComponent extends Component
             }
         }
         $this->setAmountForCheckout();
+
+        if(Auth::check())
+        {
+            Cart::instance('cart')->store(Auth::user()->email); // save cart to database using user email;
+        }
+
         return view('livewire.cart-component')->layout('layouts.base');
     }
     
