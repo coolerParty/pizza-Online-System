@@ -43,6 +43,7 @@ class HomeComponent extends Component
         if(Auth::check())
         {
             Cart::instance('cart')->restore(Auth::user()->email); // save cart to database using user email;
+            Cart::instance('wishlist')->restore(Auth::user()->email); // save wishlist to database using user email;
         }
 
         return view('livewire.home-component',['products'=>$products,'witems'=>$witems])->layout('layouts.base');
