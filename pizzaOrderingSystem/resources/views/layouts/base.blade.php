@@ -30,6 +30,7 @@
 			<a href="#about">about</a>
 			<a href="#review">review</a>
             <a class="@if(url()->current() == route('cart.index')) active @endif" href="{{ route('cart.index') }}">order</a>
+            <a class="@if(url()->current() == route('contact')) active @endif" href="{{ route('contact') }}">Contact</a>
 			@auth
 				@if (Auth::user()->utype === 'ADM')
 					<a href="{{ route('admin.dashboard') }}">dashboard</a>
@@ -48,6 +49,7 @@
 				<a href="{{ route('login') }}">login</a>
 				<a href="{{ route('register') }}">register</a>
 			@endif
+
 		</nav>
 
         <div class="icons">
