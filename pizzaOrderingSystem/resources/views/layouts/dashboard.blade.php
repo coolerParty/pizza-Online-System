@@ -188,6 +188,13 @@
 											<span class="hide-menu">Order</span>
 										</a>
 									</li>
+									<li class="sidebar-item">
+										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.contact') }}"
+											aria-expanded="false">
+											<i class="fas fa-shopping-basket" aria-hidden="true"></i>
+											<span class="hide-menu">Contact</span>
+										</a>
+									</li>
 								<!-- Admin Menu End -->
 								<!-- User Menu -->
 								@elseif(Auth::user()->utype === 'USR')

@@ -1,44 +1,72 @@
 <div>
 	<!-- order section starts  -->
+    <style>
+        .err_input{
+            border: 1px solid red!important;
+        }
+        .err_feedback{
+            color: red;
+        }
+    </style>
 
 	<section class="order" id="order" style="margin: 100px auto 50px auto;">
 
 		{{-- <h3 class="sub-heading"> order now </h3> --}}
 		<h1 class="heading"> Contact Us </h1>
+        @if (Session::has('message'))
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<h1 class="sub-heading"><i class="icon fas fa-check"></i> {{ Session::get('message') }}</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		@endif
 
-		<form action="">
+		<form wire:submit.prevent="sendMessage">
 
 			<div class="inputBox">
 				<div class="input">
 					<span>your name</span>
-					<input type="text" placeholder="enter your name">
+                    @error('name')<div class="err_feedback">{{ $message }}</div>@enderror
+					<input type="text" placeholder="enter your name" class="@error('name') err_input @enderror" wire:model="name">
+                    
 				</div>
 				<div class="input">
+                    <span>Website</span>
+					<span style="border-bottom: 1px solid rgb(5, 155, 0); padding: 10px;"><b>www.pizzaorderingOnline.com</b></span>
+				</div>
+			</div>
+            <div class="inputBox">
+				<div class="input">
 					<span>your number</span>
-					<input type="number" placeholder="enter your number">
+                    @error('phone')<div class="err_feedback">{{ $message }}</div>@enderror
+					<input type="number" placeholder="enter your number" class="@error('phone') err_input @enderror" wire:model="phone">
+				</div>                
+				<div class="input">
+					<span>Phone</span>
+					<span style="border-bottom: 1px solid rgb(5, 155, 0); padding: 10px;"><b>+9999-999-9999</b></span>					
 				</div>
 			</div>
 			<div class="inputBox">
 				<div class="input">
 					<span>your email</span>
-					<input type="email" placeholder="enter food name">
+                    @error('email')<div class="err_feedback">{{ $message }}</div>@enderror
+					<input type="email" placeholder="enter your email" class="@error('email') err_input @enderror" wire:model="email">
 				</div>
 				<div class="input">
-					<span>yout address</span>
-					<input type="email" placeholder="enter food name">
+					<span>Email</span>
+                    <span style="border-bottom: 1px solid rgb(5, 155, 0); padding: 10px;"><b>admin@admin.com</b></span>
 				</div>
 			</div>
 			<div class="inputBox">
 				<div class="input">
 					<span>Comment</span>
-					<textarea name="" placeholder="enter your address" id="" cols="30" rows="10"></textarea>
+                    @error('comment')<div class="err_feedback">{{ $message }}</div>@enderror
+					<textarea name="" placeholder="enter your comment" class="@error('comment') err_input @enderror" id="" cols="30" rows="10" wire:model="comment"></textarea>
 				</div>
 				<div class="input">
 					<span>Map</span>
 					<iframe
-						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2389.295676407734!2d124.78255211354696!3d11.91157758415562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3309ce9ca69e98f7%3A0x5cc17aaddf71977e!2sTarangnan%2C%20Samar!5e0!3m2!1sen!2sph!4v1646983281582!5m2!1sen!2sph"
+						src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15583.404443060974!2d124.642039!3d12.4596346!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xac6eec83dc56cd7!2sPizza%20Hut!5e0!3m2!1sen!2sph!4v1646988089959!5m2!1sen!2sph"
 						width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-
 				</div>
 			</div>
 

@@ -94,5 +94,5 @@ Route::middleware(['auth:sanctum','verified','authadmin'])->group(function(){
     Route::get('/admin/order',AdminOrderComponent::class)->name('admin.order');	
     Route::get('/admin/order/{order_id}',AdminOrderDetailsComponent::class)->name('admin.orderdetail');	
 
-    Route::get('/admin/contact',AdminContactComponent::class)->name('admin.contact');	
+    Route::get('/admin/contact-us',AdminContactComponent::class)->name('admin.contact');	
 });
