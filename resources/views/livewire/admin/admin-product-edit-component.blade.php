@@ -9,7 +9,7 @@
 					<ol class="breadcrumb ms-auto">
 						<li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="fw-normal">Home</a></li>
 						<li class="breadcrumb-item"><a href="{{ route('admin.product') }}" class="fw-normal ">Product</a></li>
-						<li class="breadcrumb-item active"><a href="{{ route('admin.addproduct') }}" class="fw-normal ">Add</a></li>
+						<li class="breadcrumb-item active"><a href="#" class="fw-normal ">Edit</a></li>
 					</ol>
 				</div>
 			</div>
@@ -31,19 +31,19 @@
 				<div class="white-box">
 					@if (Session::has('message'))
 						<div class="alert alert-success alert-dismissible fade show" role="alert">
-							<h5><i class="icon fas fa-check"></i> Product Added!</h5>{{ Session::get('message') }}
+							<h5><i class="icon fas fa-check"></i> Product Update!</h5>{{ Session::get('message') }}
 							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 						</div>
 					@endif
 					<div class="row">
 						<div class="col">
-							<h3 class="box-title">Product Entry</h3>
+							<h3 class="box-title">Product Edit</h3>
 						</div>
 						<div class="col"><a href="{{ route('admin.product') }}" class="btn btn-primary float-end"><i
 									class="fas fa-list mr-2"></i> Back to Product</a> </div>
 					</div>
 					<!-- form start -->
-					<form wire:submit.prevent="addProduct" class="form-horzontal form-material">
+					<form wire:submit.prevent="updateProduct" class="form-horzontal form-material">
 						<div class="card-body">
 							<div class="form-group mb-4">
 								<label for="name">Name</label>
@@ -51,7 +51,7 @@
 									placeholder="Enter product" wire:model="name">
 								@error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
 							</div>
-                            <div class="form-group mb-4">
+                            <div class="form-group mb-4" wire:ignore>
 								<label for="short_description">Short Description</label>
 								<textarea type="text" class="form-control @error('short_description') is-invalid @enderror" id="short_description" name="short_description"
 									placeholder="Enter Short Description" wire:model="short_description"></textarea>
@@ -99,11 +99,13 @@
 							</div>
                             <div class="form-group mb-4">
                                 <label class="control-label">Product Image</label>
-                                    <input type="file" class="form-control mb-1" wire:model="image">
-                                    @if ($image)
-                                        <img src="{{ $image->temporaryUrl() }}" width="515" alt="">
+                                    <input type="file" class="form-control mb-1  @error('newimage') is-invalid @enderror" wire:model="newimage">
+                                    @if ($newimage)
+                                        <img src="{{ $newimage->temporaryUrl() }}" width="515" alt="">
+                                    @elseif ($image)
+                                        <img src="{{ asset('assets/images/product') }}/{{ $image }}" width="515" alt="">
                                     @endif
-                                    @error('image') <p class="text-danger">{{ $message }}</p> @enderror
+                                    @error('newimage') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
 
 						</div>
