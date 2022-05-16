@@ -11,7 +11,7 @@ class HomeComponent extends Component
 {
     public function store($product_id, $product_name, $product_price)
     {
-        Cart::instance('cart')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product'); 
+        Cart::instance('cart')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
         $this->emitTo('cart-count-component','refreshComponent'); // refresh cart count display top right menu
         session()->flash('cart_message','"'.$product_name . '" has been added to cart!');
     }
@@ -37,7 +37,7 @@ class HomeComponent extends Component
 
     public function render()
     {
-        $products = Product::select('id','name','regulary_price','image','slug')->orderby('created_at','ASC')->limit(6)->get();
+        $products = Product::select('id','name','regulary_price','short_description','image','slug')->orderby('created_at','ASC')->limit(8)->get();
         $witems = Cart::instance('wishlist')->content()->pluck('id');
 
         if(Auth::check())

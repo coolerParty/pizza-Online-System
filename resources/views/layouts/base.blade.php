@@ -32,11 +32,11 @@
             <a class="@if(url()->current() == route('cart.index')) active @endif" href="{{ route('cart.index') }}">order</a>
             <a class="@if(url()->current() == route('contact')) active @endif" href="{{ route('contact') }}">Contact</a>
 			@auth
-				@if (Auth::user()->utype === 'ADM')
+				@can ('admin-access')
 					<a href="{{ route('admin.dashboard') }}">dashboard</a>
-				@elseif(Auth::user()->utype === 'USR')
+				@else
 					<a href="{{ route('user.dashboard') }}">dashboard</a>
-				@endif
+				@endcan
 				<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
 					aria-expanded="false">
 					<i class="fas fa-sign-out-alt" aria-hidden="true"></i>

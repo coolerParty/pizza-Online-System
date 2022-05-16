@@ -52,7 +52,7 @@
 						<!-- Logo -->
 						<!-- ============================================================== -->
 						@if (Route::has('login'))
-							@if (Auth::user()->utype === 'ADM')
+							@can('admin-access')
 								<a class="navbar-brand" href="{{ route('admin.dashboard') }}">
 									<!-- Logo icon -->
 									<b class="logo-icon">
@@ -66,7 +66,7 @@
 										<img src="{{ asset('admin/plugins/images/logo-text.png') }}" alt="homepage" />
 									</span>
 								</a>
-							@elseif(Auth::user()->utype === 'USR')
+							@else
 								<a class="navbar-brand" href="{{ route('user.dashboard') }}">
 									<!-- Logo icon -->
 									<b class="logo-icon">
@@ -150,7 +150,7 @@
 						<ul id="sidebarnav">
 							@auth
 								<!-- Admin Menu -->
-								@if (Auth::user()->utype === 'ADM')
+								@can ('admin-access')
 									<li class="sidebar-item pt-2">
 										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.dashboard') }}"
 											aria-expanded="false">
@@ -197,7 +197,7 @@
 									</li>
 								<!-- Admin Menu End -->
 								<!-- User Menu -->
-								@elseif(Auth::user()->utype === 'USR')
+								@else
 									<li class="sidebar-item pt-2">
 										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('user.dashboard') }}"
 											aria-expanded="false">

@@ -28,7 +28,7 @@
 							wire:click.prevent="addToWishlist({{ $product->id }}, '{{ $product->name }}',{{ $product->regulary_price }})"></a>
 					@endif
 					<a href="#" class="fas fa-eye"></a>
-					<img src="{{ asset('assets/images/product') }}/{{ $product->image }}" alt="">
+					<img src="{{ asset('assets/images/product') }}/{{ $product->image }}" alt="" style="width: 100%;">
 					<h3>{{ $product->name }}</h3>
 					<div class="stars">
 						<i class="fas fa-star"></i>
