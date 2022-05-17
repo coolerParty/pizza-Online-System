@@ -37,7 +37,7 @@
 						<i class="fas fa-star"></i>
 						<i class="fas fa-star-half-alt"></i>
 					</div>
-					<span>${{ $product->regulary_price }}</span>
+					<span>${{ number_format($product->regulary_price, 2) }}</span>
 					<a href="#" class="btn"
 						wire:click.prevent="store({{ $product->id }}, '{{ $product->name }}',{{ $product->regulary_price }})">add
 						to

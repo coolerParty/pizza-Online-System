@@ -104,7 +104,7 @@
 				</div>
 			</div>
 			@if ($ship_to_different)
-				<div class="shipping-address">
+				<div class="shipping-address bg-gray-100 px-4  py-6 rounded border">
 					<div class="inputBox">
 						<h1 class="heading">Shipping Address</h1>
 					</div>
@@ -185,10 +185,10 @@
 				<div class="input">
 					<h1 class="sub-heading">Payment Method </h1>
 					@if ($paymentmode === "card")
-					<div class="inputBox">
+					<div class="inputBox bg-gray-100 px-3 py-6 border rounded">
 						@if (Session::has('stripe_error'))
 							<span class="text-danger">{{ Session::get('stripe_error') }}</span>
-							
+
 						@endif
 						<div class="input">
 							<span>Card Number:</span>
@@ -214,7 +214,7 @@
 								name="exp-year" wire:model="exp_year">
 							@error('exp_year') <span class="text-danger">{{ $message }}</span> @enderror
 						</div>
-					</div>						
+					</div>
 					@endif
 					<div class="inputBox">
 						<div class="input">
@@ -254,7 +254,7 @@
 				@endif
 			</div>
 
-			<button type="submit" class="btn">Place Order Now</button>
+			<button type="submit" class="btn w-full" style="background: #04AA6D;">Place Order Now</button>
 		</form>
 	</section>
 	<!-- order section ends -->
