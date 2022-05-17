@@ -5,12 +5,12 @@
             padding: 10rem 5rem;
         }
 
-        /* table  Start */
+        /* carts table  Start */
         .carts {
             font-family: Arial, Helvetica, sans-serif;
             border-collapse: collapse;
             width: 100%;
-            font-size: 2rem;
+            font-size: 1.4rem;
         }
 
         .carts td,
@@ -35,10 +35,16 @@
             color: white;
         }
 
-        /* table  Start */
+        /* carts table  Start */
+
 
         .box-container-cart {
             margin: 10px auto;
+        }
+
+        .flex-space-between {
+            display: flex;
+            justify-content: space-between;
         }
 
         .products-cart {
@@ -175,7 +181,7 @@
             <tbody>
                 @if (!Session::has('coupon'))
                 <tr>
-                    <td>
+                    <td class="flex-space-between">
                         <div class="inputBox">
                             <div class="input">
                                 <input class="frm-input " name="have-code" id="have-code" value="1" type="checkbox"
@@ -183,8 +189,6 @@
                                 <label for="have-code">Enter your coupon code</label>
                             </div>
                         </div>
-                    </td>
-                    <td>
                         @if ($haveCouponCode == 1)
 
                         <div class="inputBox text-right">
@@ -207,69 +211,55 @@
                 </tr>
                 @endif
                 <tr>
-                    <td>
-                        <p>Subtotal</p>
-                    </td>
-                    <td>
-                        <p class="text-right">${{ Cart::instance('cart')->subtotal() }}</p>
+                    <td class="flex-space-between">
+                        <span>Subtotal</span>
+                        <strong>${{ Cart::instance('cart')->subtotal() }}</strong>
                     </td>
                 </tr>
 
                 @if (Session::has('coupon'))
 
                 <tr>
-                    <td>
-                        <p class="link-to-product">Discount ({{ Session::get('coupon')['code'] }}) <a href="#"
-                                wire:click.prevent="removeCoupon"><i class="fa fa-times text-danger"></i></a></span><b
-                                class="index">
-                        </p>
-                    </td>
-                    <td>
-                        <p class="text-right">-${{ number_format($discount, 2) }}</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p class="link-to-product">Subtotal with Discount ({{ config('cart.tax') }}%) </span><b
-                                class="index"></p>
-                    </td>
-                    <td>
-                        <p class="text-right">${{ number_format($subtotalAfterDiscount, 2) }}</p>
+                    <td class="flex-space-between">
+                        <span>Discount ({{ Session::get('coupon')['code'] }})
+                            <a href="#" wire:click.prevent="removeCoupon">
+                                <i class="fa fa-times text-danger"></i>
+                            </a>
+                        </span>
+                        <strong>-${{ number_format($discount, 2) }}</strong>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <p class="link-to-product">Tax ({{ config('cart.tax') }}%)</span><b class="index"></p>
-                    </td>
-                    <td>
-                        <p class="text-right">${{ number_format($taxAfterDiscount, 2) }}</p>
+                    <td class="flex-space-between">
+                        <span>Subtotal with Discount ({{ config('cart.tax') }}%)</span>
+                        <strong>${{ number_format($subtotalAfterDiscount, 2) }}</strong>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <p class="link-to-product">Total</p>
+                    <td class="flex-space-between">
+                        <span>Tax ({{ config('cart.tax') }}%)</span>
+                        <strong>${{ number_format($taxAfterDiscount, 2) }}</strong>
                     </td>
-                    <td>
-                        <p class="text-right">${{ number_format($totalAfterDiscount, 2) }}</p>
+                </tr>
+                <tr>
+                    <td class="flex-space-between">
+                        <span>Total</span>
+                        <strong>${{ number_format($totalAfterDiscount, 2) }}</strong>
                     </td>
                 </tr>
 
                 @else
 
                 <tr>
-                    <td>
-                        <p class="link-to-product">Tax</p>
-                    </td>
-                    <td>
-                        <p class="text-right">${{ number_format(Cart::instance('cart')->tax(), 2) }}</p>
+                    <td class="flex-space-between">
+                        <span>Tax</span>
+                        <strong>${{ number_format(Cart::instance('cart')->tax(), 2) }}</strong>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <p class="link-to-product">Total</p>
-                    </td>
-                    <td>
-                        <p class="text-right">${{ Cart::instance('cart')->total() }}</p>
+                    <td class="flex-space-between">
+                        <span>Total</span>
+                        <strong>${{ Cart::instance('cart')->total() }}</strong>
                     </td>
                 </tr>
 
@@ -364,5 +354,7 @@
         @endif
     </div>
     {{-- Save for Later End --}}
-
+    <div class="clearcart">
+        <a class="btn btn-checkout" href="{{ route('user.order') }}">Order History</a>
+    </div>
 </div>

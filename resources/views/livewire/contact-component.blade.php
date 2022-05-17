@@ -9,7 +9,7 @@
         }
     </style>
 
-	<section class="order" id="order" style="margin: 100px auto 50px auto;">
+	<section class="order" id="order" style="margin: 100px auto 50px auto; background: #fff!important;">
 
 		{{-- <h3 class="sub-heading"> order now </h3> --}}
 		<h1 class="heading"> Contact Us </h1>
@@ -27,7 +27,7 @@
 					<span>your name</span>
                     @error('name')<div class="err_feedback">{{ $message }}</div>@enderror
 					<input type="text" placeholder="enter your name" class="@error('name') err_input @enderror" wire:model="name">
-                    
+
 				</div>
 				<div class="input">
                     <span>Website</span>
@@ -39,10 +39,10 @@
 					<span>your number</span>
                     @error('phone')<div class="err_feedback">{{ $message }}</div>@enderror
 					<input type="number" placeholder="enter your number" class="@error('phone') err_input @enderror" wire:model="phone">
-				</div>                
+				</div>
 				<div class="input">
 					<span>Phone</span>
-					<span style="border-bottom: 1px solid rgb(5, 155, 0); padding: 10px;"><b>+9999-999-9999</b></span>					
+					<span style="border-bottom: 1px solid rgb(5, 155, 0); padding: 10px;"><b>+9999-999-9999</b></span>
 				</div>
 			</div>
 			<div class="inputBox">
@@ -79,5 +79,5 @@
 
 	<!-- order section ends -->
 
-   
+
 </div>

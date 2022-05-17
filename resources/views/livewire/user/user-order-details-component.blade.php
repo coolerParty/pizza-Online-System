@@ -1,283 +1,264 @@
-<!-- Content Wrapper. Contains page content -->
-<div class="page-wrapper">
-	<!-- ============================================================== -->
-	<!-- Bread crumb and right sidebar toggle -->
-	<!-- ============================================================== -->
-	<div class="page-breadcrumb bg-white">
-		<div class="row align-items-center">
-			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-				<h4 class="page-title text-uppercase">Order Details</h4>
-			</div>
-			<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-				<div class="d-md-flex">
-					<ol class="breadcrumb ms-auto">
-						<li class="breadcrumb-item"><a href="{{ route('user.dashboard') }}" class="fw-normal">Home</a></li>
-						<li class="breadcrumb-item"><a href="{{ route('user.order') }}" class="fw-normal ">My Orders</a></li>
-						<li class="breadcrumb-item active"><a href="#" class="fw-normal ">Order Details</a></li>
-					</ol>
-					{{-- <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
-                                class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Upgrade
-                                to Pro</a> --}}
-				</div>
-			</div>
-		</div>
-		<!-- /.col-lg-12 -->
-	</div>
-	<!-- ============================================================== -->
-	<!-- End Bread crumb and right sidebar toggle -->
-	<!-- ============================================================== -->
+<div class="content">
+    <style>
+        .content {
+            margin: 0;
+            padding: 10rem 5rem;
+        }
 
-	<!-- Main content -->
-	<div class="container-fluid">
-		<!-- ============================================================== -->
-		<!-- Start ORDERED DETAILS Page Content -->
-		<!-- ============================================================== -->
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="white-box">
-					@if (Session::has('order_message'))
-						<div class="alert alert-success alert-dismissible fade show" role="alert">
-							<h5><i class="icon fas fa-check"></i> Order!</h5>{{ Session::get('order_message') }}
-							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-						</div>
-					@endif
-					<div class="table-responsive">
-						<div class="row col-sm-12">
-							<div class="col-sm-6">
-								<h4 class="page-title text-uppercase">Ordered Details</h4>
-							</div>
-							<div class="col-sm-6">
-								<a href="{{ route('user.order') }}" class="btn btn-primary float-end m-1"><i
-										class="fas fa-list mr-2"></i> Back to My Orders</a>
-								@if ($order->status == 'ordered')
-									<a href="#" class="btn btn-warning float-end m-1" wire:click.prevent="cancelOrder"><i class="fas fa-list mr-2"></i>
-										Cancel Order</a>
-								@endif
-							</div>
-						</div>
-						<table class="table">
-							<tr>
-								<th class="border-top-0">Order Id</th>
-								<td class="border-top-0">{{ $order->id }}</td>
-								<th class="border-top-0">Order Date</th>
-								<td class="border-top-0">{{ $order->created_at }}</td>
-								<th class="border-top-0">Status</th>
-								<td class="border-top-0">{{ $order->status }}</td>
-								@if ($order->status == 'delivered')
-									<th class="border-top-0">Delivered Date</th>
-									<td class="border-top-0">{{ $order->delivered_date }}</td>
-								@elseif ($order->status == 'canceled')
-									<th class="border-top-0">Cancelation Date</th>
-									<td class="border-top-0">{{ $order->canceled_date }}</td>
-								@endif
-							</tr>
-						</table>
-					</div>
 
-				</div>
-			</div>
-		</div>
-		<!-- ============================================================== -->
-		<!-- End ORDERED DETAILS Pge Content -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- Start ORDERED Items Page Content -->
-		<!-- ============================================================== -->
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="white-box">
-					<div class="table-responsive">
-						<h4 class="page-title text-uppercase">Ordered Items</h4>
-						<table class="table text-nowrap">
-							<thead>
-								<tr>
-									<th class="border-top-0">#</th>
-									<th class="border-top-0">Image</th>
-									<th class="border-top-0">Name</th>
-									<th class="border-top-0">Price</th>
-									<th class="border-top-0">Quantity</th>
-									<th class="border-top-0">Amount</th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($orderItems as $item)
-									<tr>
-										<td>{{ $loop->iteration }}</td>
-										<td><img class="round" src="{{ asset('assets/images/product') }}/{{ $item->product->image }}"
-												width="100" alt=""></rd>
-										<td>{{ $item->product->name }}</rd>
-										<td>${{ $item->product->regulary_price }}</td>
-										<td>{{ $item->quantity }}</td>
-										<td>${{ $item->product->regulary_price * $item->quantity }}</td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
-					</div>
-					<div class="col-md-12 order-md-last">
-						<h4 class="d-flex justify-content-between align-items-center mb-3">
-							<span class="my-0">Order Summary</span>
-						</h4>
-						<ul class="list-group list-group-flush mb-3">
-							<li class="list-group-item d-flex justify-content-between">
-								<div>
-									<h6 class="my-0">Subtotal</h6>
-								</div>
-								<strong>${{ $order->subtotal }}</strong>
-							</li>
 
-							<li class="list-group-item d-flex justify-content-between">
-								<div>
-									<h6 class="my-0">Tax</h6>
-								</div>
-								<strong>${{ $order->tax }}</strong>
-							</li>
+        /* h_table table  Start */
+        .h_table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 1.4rem;
+        }
 
-							<li class="list-group-item d-flex justify-content-between">
-								<div>
-									<h6 class="my-0">Shipping</h6>
-								</div>
-								<strong>Free Shipping</strong>
-							</li>
+        .h_table td,
+        .h_table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
 
-							<li class="list-group-item d-flex justify-content-between">
-								<span>Total (USD)</span>
-								<strong>${{ $order->total }}</strong>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- ============================================================== -->
-		<!-- End ORDERED Items Pge Content -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- Start Billing Details Page Content -->
-		<!-- ============================================================== -->
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="white-box">
-					<div class="table-responsive">
-						<h4 class="page-title text-uppercase">Billing Details</h4>
-						<table class="table text-nowrap table-sm">
-							<tr>
-								<th class="border-top-0">First Name</th>
-								<td class="border-top-0">{{ $order->firstname }}</td>
-								<th class="border-top-0">Last Name</th>
-								<td class="border-top-0">{{ $order->firstname }}</td>
-							</tr>
-							<tr>
-								<th class="border-top-0">Phone</th>
-								<td class="border-top-0">{{ $order->mobile }}</td>
-								<th class="border-top-0">Email</th>
-								<td class="border-top-0">{{ $order->email }}</td>
-							</tr>
-							<tr>
-								<th class="border-top-0">Line1</th>
-								<td class="border-top-0">{{ $order->line1 }}</td>
-								<th class="border-top-0">Line2</th>
-								<td class="border-top-0">{{ $order->line2 }}</td>
-							</tr>
-							<tr>
-								<th class="border-top-0">City</th>
-								<td class="border-top-0">{{ $order->city }}</td>
-								<th class="border-top-0">Provine</th>
-								<td class="border-top-0">{{ $order->province }}</td>
-							</tr>
-							<tr>
-								<th class="border-top-0">Country</th>
-								<td class="border-top-0">{{ $order->country }}</td>
-								<th class="border-top-0">c</th>
-								<td class="border-top-0">{{ $order->zipcode }}</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- ============================================================== -->
-		<!-- End Billing Details Page Content -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- Start Shipping Details Page Content -->
-		<!-- ============================================================== -->
-		@if ($order->is_shipping_different)
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="white-box">
-						<div class="table-responsive">
-							<h4 class="page-title text-uppercase">Shipping Details</h4>
-							<table class="table text-nowrap table-sm">
-								<tr>
-									<th class="border-top-0">First Name</th>
-									<td class="border-top-0">{{ $order->shipping->firstname }}</td>
-									<th class="border-top-0">Last Name</th>
-									<td class="border-top-0">{{ $order->shipping->firstname }}</td>
-								</tr>
-								<tr>
-									<th class="border-top-0">Phone</th>
-									<td class="border-top-0">{{ $order->shipping->mobile }}</td>
-									<th class="border-top-0">Email</th>
-									<td class="border-top-0">{{ $order->shipping->email }}</td>
-								</tr>
-								<tr>
-									<th class="border-top-0">Line1</th>
-									<td class="border-top-0">{{ $order->shipping->line1 }}</td>
-									<th class="border-top-0">Line2</th>
-									<td class="border-top-0">{{ $order->shipping->line2 }}</td>
-								</tr>
-								<tr>
-									<th class="border-top-0">City</th>
-									<td class="border-top-0">{{ $order->shipping->city }}</td>
-									<th class="border-top-0">Provine</th>
-									<td class="border-top-0">{{ $order->shipping->province }}</td>
-								</tr>
-								<tr>
-									<th class="border-top-0">Country</th>
-									<td class="border-top-0">{{ $order->shipping->country }}</td>
-									<th class="border-top-0">c</th>
-									<td class="border-top-0">{{ $order->shipping->zipcode }}</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		@endif
-		<!-- ============================================================== -->
-		<!-- End Shipping Details Page Content -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- Start Transaction Details Page Content -->
-		<!-- ============================================================== -->
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="white-box">
-					<div class="table-responsive">
-						<h4 class="page-title text-uppercase">Transaction</h4>
-						<table class="table text-nowrap table-sm">
-							<tr>
-								<th class="border-top-0">Transaction Mode</th>
-								<td class="border-top-0">{{ $order->transaction->mode }}</td>
-							</tr>
-							<tr>
-								<th class="border-top-0">Status</th>
-								<td class="border-top-0">{{ $order->transaction->status }}</td>
-							</tr>
-							<tr>
-								<th class="border-top-0">Transactino Date</th>
-								<td class="border-top-0">{{ $order->transaction->created_at }}</td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- ============================================================== -->
-		<!-- End Transaction Page Content -->
-		<!-- ============================================================== -->
-	</div>
-	<!-- /.container-fluid -->
+        .h_table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* .carts tr:hover {
+            background-color: #ddd;
+        } */
+
+        .h_table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        .box-container-cart {
+            margin: 10px auto;
+        }
+
+        .box-title {
+            font-size: 2rem;
+        }
+
+        .flex-space-between {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* history table  Start */
+    </style>
+    <!-- ============================================================= = -->
+    <!-- Start ORDERED DETAILS Page Content -->
+    <!--   ============================================================= = -->
+    <div class="box-container-cart">
+        <h1 class="heading"> Order Details </h1>
+        <table class="h_table">
+            <tbody>
+                <tr>
+                    <td><strong>Order Id : </strong> {{ $order->id }}</td>
+                    <td><strong>Order Date : </strong> {{ $order->created_at }}</td>
+                    <td><strong>Status: </strong> {{ $order->status }}</td>
+                    @if ($order->status == 'delivered')
+                    <td><strong>Delivered Date: </strong> {{ $order->delivered_date }}</td>
+                    @elseif ($order->status == 'canceled')
+                    <td><strong>Cancelation Date: </strong> {{ $order->canceled_date }}</td>
+                    @endif
+                    <td><a href="{{ route('user.order') }}" class="btn btn-primary float-end m-1"><i
+                                class="fas fa-list mr-2"></i> Back to My Orders</a>
+                        @if ($order->status == 'ordered')
+                        <a href="#" class="btn btn-warning float-end m-1" wire:click.prevent="cancelOrder"><i
+                                class="fas fa-list mr-2"></i>
+                            Cancel Order</a>
+                        @endif
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- ============================================================= = -->
+        <!-- End ORDERED DETAILS Page Content -->
+        <!-- ============================================================= = -->
+        <!-- ============================================================= = -->
+        <!-- Start ORDERED ITEMS Page Content -->
+        <!-- ============================================================= = -->
+
+        <h1 class="box-title mt-5">Ordered Items</h1>
+        <table class="h_table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($orderItems as $item)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td><img class="round" src="{{ asset('assets/images/product') }}/{{ $item->product->image }}"
+                            width="100" alt=""></rd>
+                    <td>{{ $item->product->name }}</rd>
+                    <td>${{ $item->product->regulary_price }}</td>
+                    <td>{{ $item->quantity }}</td>
+                    <td>${{ $item->product->regulary_price * $item->quantity }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <h1 class="box-title mt-2">Order Summary</h1>
+        <table class="h_table">
+            <tbody>
+                <tr>
+                    <td class="flex-space-between">
+                        <span>Subtotal</span>
+                        <strong>${{ $order->subtotal }}</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="flex-space-between">
+                        <span>Tax</span>
+                        <strong>${{ $order->tax }}</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="flex-space-between">
+                        <span>Shipping</span>
+                        <strong>Free Shipping</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="flex-space-between">
+                        <span>Total (USD)</span>
+                        <strong>${{ $order->total }}</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- ============================================================= = -->
+        <!-- End ORDERED ITEMS Page Content -->
+        <!-- ============================================================= = -->
+        <!-- ============================================================= = -->
+        <!-- Start Billing Details Page Content -->
+        <!--   ============================================================= = -->
+        <h1 class="box-title mt-5">Billing Details</h1>
+        <table class="h_table">
+            <thead>
+            <tbody>
+                <tr>
+                    <th>First Name</th>
+                    <td>{{ $order->firstname }}</td>
+                    <th>Last Name</th>
+                    <td>{{ $order->firstname }}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ $order->mobile }}</td>
+                    <th>Email</th>
+                    <td>{{ $order->email }}</td>
+                </tr>
+                <tr>
+                    <th>Line1</th>
+                    <td>{{ $order->line1 }}</td>
+                    <th>Line2</th>
+                    <td>{{ $order->line2 }}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{ $order->city }}</td>
+                    <th>Provine</th>
+                    <td>{{ $order->province }}</td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td>{{ $order->country }}</td>
+                    <th>c</th>
+                    <td>{{ $order->zipcode }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- ============================================================= = -->
+        <!-- End Billing Details Page Content -->
+        <!-- ============================================================= = -->
+        <!-- ============================================================= = -->
+        <!-- Start Shipping Details Page Content -->
+        <!-- ============================================================= = -->
+        @if ($order->is_shipping_different)
+        <h1 class="box-title mt-5">Shipping Details</h1>
+        <table class="h_table">
+            <thead>
+            <tbody>
+                <tr>
+                    <th>First Name</th>
+                    <td>{{ $order->shipping->firstname }}</td>
+                    <th>Last Name</th>
+                    <td>{{ $order->shipping->firstname }}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ $order->shipping->mobile }}</td>
+                    <th>Email</th>
+                    <td>{{ $order->shipping->email }}</td>
+                </tr>
+                <tr>
+                    <th>Line1</th>
+                    <td>{{ $order->shipping->line1 }}</td>
+                    <th>Line2</th>
+                    <td>{{ $order->shipping->line2 }}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{ $order->shipping->city }}</td>
+                    <th>Provine</th>
+                    <td>{{ $order->shipping->province }}</td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td>{{ $order->shipping->country }}</td>
+                    <th>c</th>
+                    <td>{{ $order->shipping->zipcode }}</td>
+                </tr>
+            </tbody>
+        </table>
+        @endif
+        <!-- ============================================================= = -->
+        <!-- End Shipping Details Page Content -->
+        <!-- ============================================================= = -->
+        <!-- ============================================================= = -->
+        <!-- Start Transaction Details Page Content -->
+        <!--   ============================================================= = -->
+        <h1 class="box-title mt-5">Transaction</h1>
+        <table class="h_table">
+            <tr>
+                <th>Transaction Mode</th>
+                <td>{{ $order->transaction->mode }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ $order->transaction->status }}</td>
+            </tr>
+            <tr>
+                <th>Transactino Date</th>
+                <td>{{ $order->transaction->created_at }}</td>
+            </tr>
+        </table>
+        <!-- ============================================================= = -->
+        <!-- End Transaction Details Page Content -->
+        <!-- ============================================================= = -->
+    </div>
+
 </div>
-<!-- /.content-wrapper -->
+
+
+
+
+
+
+

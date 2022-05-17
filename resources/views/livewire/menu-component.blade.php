@@ -9,7 +9,7 @@
 		}
 	</style>
 	<!-- dishes section starts  -->
-	<section class="dishes" id="dishes" style="margin: 100px auto;">
+	<section class="dishes" id="dishes" style="margin: 100px auto; background: #fff!important;">
 		<h3 class="sub-heading"> our dishes </h3>
 		<h1 class="heading"> popular dishes </h1>
 		@if (Session::has('cart_message'))
