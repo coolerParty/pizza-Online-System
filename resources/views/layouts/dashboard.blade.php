@@ -66,20 +66,6 @@
 										<img src="{{ asset('admin/plugins/images/logo-text.png') }}" alt="homepage" />
 									</span>
 								</a>
-							@else
-								<a class="navbar-brand" href="{{ route('user.dashboard') }}">
-									<!-- Logo icon -->
-									<b class="logo-icon">
-										<!-- Dark Logo icon -->
-										<img src="{{ asset('admin/plugins/images/logo-icon.png') }}" alt="homepage" />
-									</b>
-									<!--End Logo icon -->
-									<!-- Logo text -->
-									<span class="logo-text">
-										<!-- dark Logo text -->
-										<img src="{{ asset('admin/plugins/images/logo-text.png') }}" alt="homepage" />
-									</span>
-								</a>
 							@endif
 						@endif
 						<!-- ============================================================== -->
@@ -196,23 +182,6 @@
 										</a>
 									</li>
 								<!-- Admin Menu End -->
-								<!-- User Menu -->
-								@else
-									<li class="sidebar-item pt-2">
-										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('user.dashboard') }}"
-											aria-expanded="false">
-											<i class="far fa-clock" aria-hidden="true"></i>
-											<span class="hide-menu">Dashboard</span>
-										</a>
-									</li>
-									<li class="sidebar-item">
-										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('user.order') }}"
-											aria-expanded="false">
-											<i class="fas fa-shopping-basket" aria-hidden="true"></i>
-											<span class="hide-menu">Order</span>
-										</a>
-									</li>
-								<!-- User Menu End -->
 								@endif
 
 								<li class="sidebar-item">
