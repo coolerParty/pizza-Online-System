@@ -72,14 +72,14 @@ class CartComponent extends Component
 
     public function destroyAllSavedForLater()
     {
-        Cart::instance('saveForLater')->destroy();     
+        Cart::instance('saveForLater')->destroy();
         session()->flash('saveforlater_message','Save for later clear!');
     }
 
     public function applyCouponCode()
     {
         $coupon = Coupon::where('code',$this->couponCode)->where('expiry_date','>=',Carbon::today())->where('cart_value','<=',Cart::instance('cart')->subtotal())->first();
-        
+
         if(!$coupon)
         {
             session()->flash('coupon_message','Coupon code is invalid!');
@@ -136,7 +136,7 @@ class CartComponent extends Component
             session()->forget('checkout');
             return;
         }
-        
+
         if(session()->has('coupon'))
         {
             session()->put('checkout',[
@@ -155,7 +155,7 @@ class CartComponent extends Component
                 'total'    => Cart::instance('cart')->total(),
             ]);
         }
-        
+
     }
 
     public function render()
@@ -180,5 +180,5 @@ class CartComponent extends Component
 
         return view('livewire.cart-component')->layout('layouts.base');
     }
-    
+
 }

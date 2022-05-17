@@ -16,7 +16,13 @@
 
 	<!-- custom css file link  -->
 	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
 	@livewireStyles
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
 <body>
@@ -131,6 +137,8 @@
 
     <!-- custom js file link  -->
     <script src="{{ asset('js/script.js') }}"></script>
+
+
 
     @livewireScripts
 
