@@ -114,6 +114,7 @@
         <table class="carts">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Image</th>
                     <th>Product</th>
                     <th>Price</th>
@@ -125,9 +126,10 @@
             <tbody>
                 @foreach (Cart::instance('cart')->content() as $item)
                 <tr>
+                    <td>{{ $loop->iteration }}</td>
                     <td>
                         <figure class="flex justify-center">
-                            <img src="{{ asset('assets/images/product') }}/{{ $item->model->image }}" width="100"
+                            <img class="rounded-full" src="{{ asset('assets/images/product') }}/{{ $item->model->image }}" width="60"
                                 alt="">
                         </figure>
                     </td>
@@ -301,6 +303,7 @@
         <table class="carts">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Image</th>
                     <th>Product</th>
                     <th>Price</th>
@@ -310,9 +313,10 @@
             <tbody>
             @foreach (Cart::instance('saveForLater')->content() as $item)
             <tr>
+                    <td>{{ $loop->iteration }}</td>
                     <td>
                         <figure class="flex justify-center">
-                            <img src="{{ asset('assets/images/product') }}/{{ $item->model->image }}" width="100"
+                            <img class="rounded-full" src="{{ asset('assets/images/product') }}/{{ $item->model->image }}" width="60"
                                 alt="">
                         </figure>
                     </td>

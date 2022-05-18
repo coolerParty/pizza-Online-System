@@ -19,15 +19,17 @@
         .h_table th {
             border: 1px solid #ddd;
             padding: 8px;
+            background-color: #fcfcfc;
+
         }
 
         .h_table tr:nth-child(even) {
             background-color: #f2f2f2;
         }
 
-        /* .carts tr:hover {
+        .carts tr:hover {
             background-color: #ddd;
-        } */
+        }
 
         .h_table th {
             padding-top: 12px;
@@ -55,7 +57,16 @@
     <!-- ============================================================= = -->
     <!-- Start ORDERED DETAILS Page Content -->
     <!--   ============================================================= = -->
-    <div class="box-container-cart">
+    <div class="box-container-cart bg-gray-100 p-5">
+        <div class="clearcart flex-space-between">
+            <a href="{{ route('user.order') }}" class="btn btn-primary float-end m-1"><i
+                class="fas fa-list mr-2"></i> Back to My Orders</a>
+            @if ($order->status == 'ordered')
+            <a href="#" class="btn btn-warning float-end m-1" wire:click.prevent="cancelOrder"><i
+                    class="fas fa-ban mr-2"></i>
+                Cancel Order</a>
+            @endif
+        </div>
         <h1 class="heading"> Order Details </h1>
         <table class="h_table">
             <tbody>
@@ -68,14 +79,6 @@
                     @elseif ($order->status == 'canceled')
                     <td><strong>Cancelation Date: </strong> {{ $order->canceled_date }}</td>
                     @endif
-                    <td><a href="{{ route('user.order') }}" class="btn btn-primary float-end m-1"><i
-                                class="fas fa-list mr-2"></i> Back to My Orders</a>
-                        @if ($order->status == 'ordered')
-                        <a href="#" class="btn btn-warning float-end m-1" wire:click.prevent="cancelOrder"><i
-                                class="fas fa-list mr-2"></i>
-                            Cancel Order</a>
-                        @endif
-                    </td>
                 </tr>
             </tbody>
         </table>
@@ -103,8 +106,8 @@
                 @foreach ($orderItems as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td><img class="round" src="{{ asset('assets/images/product') }}/{{ $item->product->image }}"
-                            width="100" alt=""></td>
+                    <td><img class="rounded-full" src="{{ asset('assets/images/product') }}/{{ $item->product->image }}"
+                            width="60px" alt=""></td>
                     <td>{{ $item->product->name }}</rd>
                     <td>${{ $item->product->regulary_price }}</td>
                     <td>{{ $item->quantity }}</td>
@@ -112,7 +115,7 @@
                 </tr>
                 @endforeach
                 <tr style="background: rgb(196, 196, 196);">
-                    <td>Total: {{ $orderItems->count() }}</rd>
+                    <td>Total:</rd>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -172,37 +175,56 @@
         <!--   ============================================================= = -->
         <h1 class="box-title mt-7">Billing Details</h1>
         <table class="h_table">
-            <thead>
             <tbody>
                 <tr>
-                    <th>First Name</th>
-                    <td>{{ $order->firstname }}</td>
-                    <th>Last Name</th>
-                    <td>{{ $order->firstname }}</td>
+                    <td>
+                        <strong>First Name :</strong>
+                        <span>{{ $order->firstname }}</span>
+                    </td>
+                    <td>
+                        <strong>Last Name :</strong>
+                        <span>{{ $order->lastname }}</span>
+                    </td>
                 </tr>
                 <tr>
-                    <th>Phone</th>
-                    <td>{{ $order->mobile }}</td>
-                    <th>Email</th>
-                    <td>{{ $order->email }}</td>
+                    <td>
+                        <strong>Phone :</strong>
+                        <span>{{ $order->mobile }}</span>
+                    </td>
+                    <td>
+                        <strong>Email :</strong>
+                        <span>{{ $order->email }}</span>
+                    </td>
                 </tr>
                 <tr>
-                    <th>Line1</th>
-                    <td>{{ $order->line1 }}</td>
-                    <th>Line2</th>
-                    <td>{{ $order->line2 }}</td>
+                    <td>
+                        <strong>Line1 :</strong>
+                        <span>{{ $order->line1 }}</span>
+                    </td>
+                    <td>
+                        <strong>Line2 :</strong>
+                        <span>{{ $order->line2 }}</span>
+                    </td>
                 </tr>
                 <tr>
-                    <th>City</th>
-                    <td>{{ $order->city }}</td>
-                    <th>Provine</th>
-                    <td>{{ $order->province }}</td>
+                    <td>
+                        <strong>City :</strong>
+                        <span>{{ $order->city }}</span>
+                    </td>
+                    <td>
+                        <strong>Provine :</strong>
+                        <span>{{ $order->province }}</span>
+                    </td>
                 </tr>
                 <tr>
-                    <th>Country</th>
-                    <td>{{ $order->country }}</td>
-                    <th>c</th>
-                    <td>{{ $order->zipcode }}</td>
+                    <td>
+                        <strong>Country :</strong>
+                        <span>{{ $order->country }}</span>
+                    </td>
+                    <td>
+                        <strong>Zipcode :</strong>
+                        <span>{{ $order->zipcode }}</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -218,34 +240,54 @@
             <thead>
             <tbody>
                 <tr>
-                    <th>First Name</th>
-                    <td>{{ $order->shipping->firstname }}</td>
-                    <th>Last Name</th>
-                    <td>{{ $order->shipping->firstname }}</td>
+                    <td>
+                        <strong>First Name :</strong>
+                        {{ $order->shipping->firstname }}
+                    </td>
+                    <td>
+                        <strong>Last Name :</strong>
+                        {{ $order->shipping->firstname }}
+                    </td>
                 </tr>
                 <tr>
-                    <th>Phone</th>
-                    <td>{{ $order->shipping->mobile }}</td>
-                    <th>Email</th>
-                    <td>{{ $order->shipping->email }}</td>
+                    <td>
+                        <strong>Phone :</strong>
+                        {{ $order->shipping->mobile }}
+                    </td>
+                    <td>
+                        <strong>Email :</strong>
+                        {{ $order->shipping->email }}
+                    </td>
                 </tr>
                 <tr>
-                    <th>Line1</th>
-                    <td>{{ $order->shipping->line1 }}</td>
-                    <th>Line2</th>
-                    <td>{{ $order->shipping->line2 }}</td>
+                    <td>
+                        <strong>Line1 :</strong>
+                        {{ $order->shipping->line1 }}
+                    </td>
+                    <td>
+                        <strong>Line2 :</strong>
+                        {{ $order->shipping->line2 }}
+                    </td>
                 </tr>
                 <tr>
-                    <th>City</th>
-                    <td>{{ $order->shipping->city }}</td>
-                    <th>Provine</th>
-                    <td>{{ $order->shipping->province }}</td>
+                    <td>
+                        <strong>City :</strong>
+                        {{ $order->shipping->city }}
+                    </td>
+                    <td>
+                        <strong>Provine :</strong>
+                        {{ $order->shipping->province }}
+                    </td>
                 </tr>
                 <tr>
-                    <th>Country</th>
-                    <td>{{ $order->shipping->country }}</td>
-                    <th>c</th>
-                    <td>{{ $order->shipping->zipcode }}</td>
+                    <td>
+                        <strong>Country :</strong>
+                        {{ $order->shipping->country }}
+                    </td>
+                    <td>
+                        <strong>Zipcode :</strong>
+                        {{ $order->shipping->zipcode }}
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -258,18 +300,21 @@
         <!--   ============================================================= = -->
         <h1 class="box-title mt-7">Transaction</h1>
         <table class="h_table">
-            <tr>
-                <th>Transaction Mode</th>
-                <td>{{ $order->transaction->mode }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ $order->transaction->status }}</td>
-            </tr>
-            <tr>
-                <th>Transactino Date</th>
-                <td>{{ $order->transaction->created_at }}</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Transaction Mode</th>
+                    <th>Status</th>
+                    <th>Transaction Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ $order->transaction->mode }}</td>
+                    <td>{{ $order->transaction->status }}</td>
+                    <td>{{ $order->transaction->created_at }}</td>
+                </tr>
+            </tbody>
+
         </table>
         <!-- ============================================================= = -->
         <!-- End Transaction Details Page Content -->

@@ -115,8 +115,8 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>SubTotal</th>
                         <th>Discount</th>
+                        <th>SubTotal</th>
                         <th>Tax</th>
                         <th>Total</th>
                         <th>Status</th>
@@ -130,8 +130,8 @@
                         <td>{{ $prevOrder->id }} </td>
                         <td>{{ $prevOrder->firstname }} {{ $prevOrder->lastname }}</td>
                         <td>{{ $prevOrder->email }} </td>
-                        <td>${{ $prevOrder->subtotal }} </td>
                         <td>${{ $prevOrder->discount }} </td>
+                        <td>${{ $prevOrder->subtotal }} </td>
                         <td>${{ $prevOrder->tax }} </td>
                         <td>${{ $prevOrder->total }} </td>
                         <td class="text-center text-white">
