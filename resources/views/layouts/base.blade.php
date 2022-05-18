@@ -35,7 +35,7 @@
 			<a class="@if(url()->current() == route('menu.index')) active @endif" href="{{ route('menu.index') }}">dishes</a>
 			<a href="#about">about</a>
 			<a href="#review">review</a>
-            <a class="@if(url()->current() == route('cart.index')) active @endif" href="{{ route('cart.index') }}">order</a>
+            <a class="@if(url()->current() == route('user.order')) active @endif" href="{{ route('user.order') }}">order</a>
             <a class="@if(url()->current() == route('contact')) active @endif" href="{{ route('contact') }}">Contact</a>
 			@auth
 				@can ('admin-access')

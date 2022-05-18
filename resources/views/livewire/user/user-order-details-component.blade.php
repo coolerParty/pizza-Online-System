@@ -87,7 +87,7 @@
         <!-- Start ORDERED ITEMS Page Content -->
         <!-- ============================================================= = -->
 
-        <h1 class="box-title mt-5">Ordered Items</h1>
+        <h1 class="box-title mt-7">Ordered Items</h1>
         <table class="h_table">
             <thead>
                 <tr>
@@ -104,18 +104,40 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td><img class="round" src="{{ asset('assets/images/product') }}/{{ $item->product->image }}"
-                            width="100" alt=""></rd>
+                            width="100" alt=""></td>
                     <td>{{ $item->product->name }}</rd>
                     <td>${{ $item->product->regulary_price }}</td>
                     <td>{{ $item->quantity }}</td>
-                    <td>${{ $item->product->regulary_price * $item->quantity }}</td>
+                    <td class="text-right">${{ $item->product->regulary_price * $item->quantity }}</td>
                 </tr>
                 @endforeach
+                <tr style="background: rgb(196, 196, 196);">
+                    <td>Total: {{ $orderItems->count() }}</rd>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">
+                        ${{
+                            number_format(
+                                $orderItems->sum(function ($id) {
+                                    return $id['price'] * $id['quantity'];
+                                })
+                            , 2)
+                        }}
+                    </td>
+                </tr>
             </tbody>
         </table>
-        <h1 class="box-title mt-2">Order Summary</h1>
+        <h1 class="box-title mt-4">Order Summary</h1>
         <table class="h_table">
             <tbody>
+                <tr>
+                    <td class="flex-space-between">
+                        <span>Discount</span>
+                        <strong>${{ $order->discount }}</strong>
+                    </td>
+                </tr>
                 <tr>
                     <td class="flex-space-between">
                         <span>Subtotal</span>
@@ -148,7 +170,7 @@
         <!-- ============================================================= = -->
         <!-- Start Billing Details Page Content -->
         <!--   ============================================================= = -->
-        <h1 class="box-title mt-5">Billing Details</h1>
+        <h1 class="box-title mt-7">Billing Details</h1>
         <table class="h_table">
             <thead>
             <tbody>
@@ -191,7 +213,7 @@
         <!-- Start Shipping Details Page Content -->
         <!-- ============================================================= = -->
         @if ($order->is_shipping_different)
-        <h1 class="box-title mt-5">Shipping Details</h1>
+        <h1 class="box-title mt-7">Shipping Details</h1>
         <table class="h_table">
             <thead>
             <tbody>
@@ -234,7 +256,7 @@
         <!-- ============================================================= = -->
         <!-- Start Transaction Details Page Content -->
         <!--   ============================================================= = -->
-        <h1 class="box-title mt-5">Transaction</h1>
+        <h1 class="box-title mt-7">Transaction</h1>
         <table class="h_table">
             <tr>
                 <th>Transaction Mode</th>
@@ -255,10 +277,3 @@
     </div>
 
 </div>
-
-
-
-
-
-
-

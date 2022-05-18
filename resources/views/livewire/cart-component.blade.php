@@ -355,6 +355,6 @@
     </div>
     {{-- Save for Later End --}}
     <div class="clearcart">
-        <a class="btn btn-checkout" href="{{ route('user.order') }}">Order History</a>
+        <a class="btn btn-checkout" href="{{ route('user.order') }}">View Orders</a>
     </div>
 </div>
