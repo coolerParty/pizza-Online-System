@@ -38,6 +38,7 @@ class AdminPermissionComponent extends Component
         } else {
             $permissions = Permission::whereNotIn('name', ['permission-create', 'permission-delete', 'permission-edit'])->orderBy('name', 'ASC')->get();
         }
+
         return view('livewire.admin.admin-permission-component', ['permissions' => $permissions])->layout('layouts.dashboard');
     }
 
