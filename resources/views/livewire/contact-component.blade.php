@@ -71,7 +71,7 @@
 			</div>
 
 
-			<input type="submit" value="order now" class="btn">
+			<input type="submit" value="order now" class="btn" style="background: #04AA6D; width: 100%;">
 
 		</form>
 

@@ -24,8 +24,13 @@
 			href="{{ asset('admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css') }}">
 		<!-- Custom CSS -->
 		<link href="{{ asset('admin/css/style.min.css') }}" rel="stylesheet">
+        <!-- Styles -->
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		@livewireStyles
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
 	</head>
+
 
 	<body>
 		<!-- ============================================================== -->
@@ -140,7 +145,7 @@
 									<li class="sidebar-item pt-2">
 										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.dashboard') }}"
 											aria-expanded="false">
-											<i class="far fa-clock" aria-hidden="true"></i>
+											<i class="fas fa-tachometer-alt" aria-hidden="true"></i>
 											<span class="hide-menu">Dashboard</span>
 										</a>
 									</li>
@@ -174,11 +179,25 @@
 											<span class="hide-menu">Order</span>
 										</a>
 									</li>
-									<li class="sidebar-item">
+                                    <li class="sidebar-item">
 										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.contact') }}"
 											aria-expanded="false">
-											<i class="fas fa-shopping-basket" aria-hidden="true"></i>
+											<i class="fas fa-id-card" aria-hidden="true"></i>
 											<span class="hide-menu">Contact</span>
+										</a>
+									</li>
+                                    <li class="sidebar-item">
+										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.permission') }}"
+											aria-expanded="false">
+											<i class="fas fa-user-circle" aria-hidden="true"></i>
+											<span class="hide-menu">Role</span>
+										</a>
+									</li>
+                                    <li class="sidebar-item">
+										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.permission') }}"
+											aria-expanded="false">
+											<i class="fas fa-universal-access" aria-hidden="true"></i>
+											<span class="hide-menu">Permission</span>
 										</a>
 									</li>
 								<!-- Admin Menu End -->
@@ -187,27 +206,20 @@
 								<li class="sidebar-item">
 									<a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
 										<i class="far fa-list-alt" aria-hidden="true"></i>
-										<span class="hide-menu">Task</span>
-									</a>
-								</li>
-
-								<li class="sidebar-item">
-									<a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
-										<i class="fa fa-user" aria-hidden="true"></i>
 										<span class="hide-menu">Profile</span>
 									</a>
 								</li>
 
 								<li class="sidebar-item">
 									<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('user.changepassword') }}" aria-expanded="false">
-										<i class="fa fa-user" aria-hidden="true"></i>
+										<i class="fa fa-lock" aria-hidden="true"></i>
 										<span class="hide-menu">Change Password</span>
 									</a>
 								</li>
 
 								<li class="sidebar-item">
 									<a class="sidebar-link waves-effect waves-dark sidebar-link" href="/" aria-expanded="false">
-										<i class="fa fa-user" aria-hidden="true"></i>
+										<i class="fas fa-home" aria-hidden="true"></i>
 										<span class="hide-menu">Home</span>
 									</a>
 								</li>

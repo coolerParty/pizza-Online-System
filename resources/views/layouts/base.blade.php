@@ -40,6 +40,8 @@
 			@auth
 				@can ('admin-access')
 					<a href="{{ route('admin.dashboard') }}">dashboard</a>
+                @else
+                    <a href="#">Profile</a>
 				@endcan
 				<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
 					aria-expanded="false">

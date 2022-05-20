@@ -7,7 +7,7 @@
 			<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 				<div class="d-md-flex">
 					<ol class="breadcrumb ms-auto">
-						<li class="breadcrumb-item"><a href="{{ route('user.dashboard') }}" class="fw-normal">Home</a></li>
+						<li class="breadcrumb-item"><a href="#" class="fw-normal">Home</a></li>
 						<li class="breadcrumb-item active"><a href="#" class="fw-normal ">Change Password</a></li>
 					</ol>
 				</div>
@@ -73,7 +73,7 @@
 									placeholder="Confirm Password" wire:model="password_confirmation">
 								@error('password_confirmation')<div class="invalid-feedback">{{ $message }}</div>@enderror
 							</div>
-                            
+
 
 						</div>
 						<button type="submit" class="btn btn-success"><i class="fas fa-plus-circle mr-2"></i> Submit</button>

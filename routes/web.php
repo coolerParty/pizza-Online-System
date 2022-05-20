@@ -34,6 +34,11 @@ use App\Http\Livewire\admin\AdminOrderComponent;
 use App\Http\Livewire\admin\AdminOrderDetailsComponent;
 
 use App\Http\Livewire\admin\AdminContactComponent;
+
+use App\Http\Livewire\admin\AdminPermissionComponent;
+use App\Http\Livewire\admin\AdminPermissionAddComponent;
+use App\Http\Livewire\admin\AdminPermissionEditComponent;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -94,4 +99,8 @@ Route::middleware(['auth:sanctum', 'verified', 'role_or_permission:super-admin|a
     Route::get('/admin/order/{order_id}', AdminOrderDetailsComponent::class)->name('admin.orderdetail');
 
     Route::get('/admin/contact-us', AdminContactComponent::class)->name('admin.contact');
+
+    Route::get('/admin/permission', AdminPermissionComponent::class)->name('admin.permission');
+    Route::get('/admin/permission/add', AdminPermissionAddComponent::class)->name('admin.addpermission');
+    Route::get('/admin/permission/edit/{permission_id}', AdminPermissionEditComponent::class)->name('admin.editpermission');
 });
