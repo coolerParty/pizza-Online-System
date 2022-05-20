@@ -6,15 +6,15 @@
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title text-uppercase">Permission</h4>
+                <h4 class="page-title text-uppercase">Role</h4>
             </div>
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                 <div class="d-md-flex">
                     <ol class="breadcrumb ms-auto">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="fw-normal">Home</a>
                         </li>
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.permission') }}"
-                                class="fw-normal ">Permission</a>
+                        <li class="breadcrumb-item active"><a href="{{ route('admin.role') }}"
+                                class="fw-normal ">Role</a>
                         </li>
                     </ol>
                 </div>
@@ -54,15 +54,13 @@
                     @endif
                     <div class="row">
                         <div class="col">
-                            <h3 class="box-title">Permission</h3>
+                            <h3 class="box-title">Role</h3>
                         </div>
-                        <div class="col"><a href="{{ route('admin.addpermission') }}"
-                                class="btn btn-success float-end"><i class="fas fa-plus-circle mr-2"></i> Add
+                        <div class="col"><a href="{{ route('admin.addrole') }}" class="btn btn-success float-end"><i
+                                    class="fas fa-plus-circle mr-2"></i> Add
                                 New</a> </div>
 
                     </div>
-
-                    {{-- <p class="text-muted">Add class <code>.table</code></p> --}}
 
                     <div class="table-responsive">
 
@@ -71,27 +69,35 @@
                                 <tr>
                                     <th class="border-top-0">#</th>
                                     <th class="border-top-0">Name</th>
-                                    <th class="border-top-0">Date</th>
+                                    <th class="border-top-0">Permissions</th>
                                     <th class="border-top-0">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($permissions as $permission)
+                                @foreach ($roles as $role)
                                 <tr>
-                                    <td>{{ $permission->id  }}</td>
-                                    <!-- <td>{{ $loop->iteration }}</td> -->
-                                    <td>{{ $permission->name }}</td>
-                                    <td>{{ $permission->created_at }}</td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $role->name }}</td>
                                     <td>
-                                        @can('permission-edit')
-                                        <a href="{{ route('admin.editpermission', ['permission_id' => $permission->id]) }}"
+                                        <div class="flex flex-wrap gap-1">
+                                            @foreach($rolePermissions as $permission)
+                                            @if($role->id == $permission->rid)
+                                            <div class="px-3 py-1 rounded space-x-1 bg-indigo-500 text-white"> {{
+                                                $permission->pname }}</div>
+                                            @endif
+                                            @endforeach
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @can('role-edit')
+                                        <a href="{{ route('admin.editrole', ['role_id' => $role->id]) }}"
                                             class="btn btn-primary btn-sm text-light"><i class="fas fa-edit mr-2"></i>
                                             Edit</a>
                                         @endcan
-                                        @can('permission-delete')
+                                        @can('role-delete')
                                         <a href="#" class="btn btn-danger btn-sm text-light"
-                                            onclick="confirm('Are you sure, You want to delete this permission?') || event.stopImmediatePropagation()"
-                                            wire:click.prevent="deletePermission({{ $permission->id }})"><i
+                                            onclick="confirm('Are you sure, You want to delete this role?') || event.stopImmediatePropagation()"
+                                            wire:click.prevent="deleteRole({{ $role->id }})"><i
                                                 class="fas fa-trash mr-2"></i> Delete</a>
                                         @endcan
                                     </td>

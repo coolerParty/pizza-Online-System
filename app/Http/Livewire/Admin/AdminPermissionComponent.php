@@ -14,16 +14,15 @@ class AdminPermissionComponent extends Component
             abort(404);
         }
 
-        $permission = Permission::findorfail($id);
-        if ($permission) {
-            $permission->delete();
-            session()->flash('del_message', 'Permission has been deleted successfully');
-            return redirect()->to(route('admin.permission'));
+        if (auth()->user()->can('super-admin')) {
+            $permission = Permission::findorfail($id);
         } else {
-            session()->flash('del_message', 'No Category has been found!');
-            return redirect()->to(route('admin.permission'));
+            $permission = Permission::findorfail($id)->whereNotIn('name', ['permission-create', 'permission-delete', 'permission-edit']);
         }
 
+        $permission->delete();
+        session()->flash('del_message', 'Permission has been deleted successfully');
+        return redirect()->to(route('admin.permission'));
     }
 
     public function render()
@@ -41,5 +40,4 @@ class AdminPermissionComponent extends Component
 
         return view('livewire.admin.admin-permission-component', ['permissions' => $permissions])->layout('layouts.dashboard');
     }
-
 }

@@ -187,7 +187,7 @@
 										</a>
 									</li>
                                     <li class="sidebar-item">
-										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.permission') }}"
+										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.role') }}"
 											aria-expanded="false">
 											<i class="fas fa-user-circle" aria-hidden="true"></i>
 											<span class="hide-menu">Role</span>
