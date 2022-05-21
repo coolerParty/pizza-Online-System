@@ -19,18 +19,21 @@ class UserOrderDetailsComponent extends Component
 
     public function cancelOrder()
     {
-        $order = Order::where('id',$this->order_id)->where('user_id',Auth::user()->id)->first();
+        $order = Order::where('id', $this->order_id)->where('user_id', Auth::user()->id)->first();
         $order->status = 'canceled';
         $order->canceled_date = DB::raw('CURRENT_DATE');
         $order->save();
-        session()->flash('order_message','Order has been canceled successfully!');
-        return redirect()->to(route('user.orderdetail',['order_id'=>$this->order_id]));
+        session()->flash('order_message', 'Order has been canceled successfully!');
+        return redirect()->to(route('user.orderdetail', ['order_id' => $this->order_id]));
     }
 
     public function render()
     {
-        $order      = Order::where('id', $this->order_id)->where('user_id',Auth::user()->id)->first();
-        $orderItems = OrderItem::where('order_id',$order->id)->get();
-        return view('livewire.user.user-order-details-component',['order'=>$order,'orderItems'=>$orderItems])->layout('layouts.base');
+        $order      = Order::where('id', $this->order_id)->where('user_id', Auth::user()->id)->first();
+        if (empty($order)) {
+            abort(404);
+        }
+        $orderItems = OrderItem::where('order_id', $order->id)->get();
+        return view('livewire.user.user-order-details-component', ['order' => $order, 'orderItems' => $orderItems])->layout('layouts.base');
     }
 }

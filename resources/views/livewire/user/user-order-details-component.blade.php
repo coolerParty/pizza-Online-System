@@ -58,6 +58,7 @@
     <!-- Start ORDERED DETAILS Page Content -->
     <!--   ============================================================= = -->
     <div class="box-container-cart bg-gray-100 p-5">
+        <h1 class="heading mt-7"> Order Details </h1>
         <div class="clearcart flex-space-between">
             <a href="{{ route('user.order') }}" class="btn btn-primary float-end m-1"><i
                 class="fas fa-list mr-2"></i> Back to My Orders</a>
@@ -67,7 +68,6 @@
                 Cancel Order</a>
             @endif
         </div>
-        <h1 class="heading"> Order Details </h1>
         <table class="h_table">
             <tbody>
                 <tr>
@@ -111,7 +111,7 @@
                     <td>{{ $item->product->name }}</rd>
                     <td>${{ $item->product->regulary_price }}</td>
                     <td>{{ $item->quantity }}</td>
-                    <td class="text-right">${{ $item->product->regulary_price * $item->quantity }}</td>
+                    <td class="text-right">${{ number_format($item->product->regulary_price * $item->quantity, 2) }}</td>
                 </tr>
                 @endforeach
                 <tr style="background: rgb(196, 196, 196);">

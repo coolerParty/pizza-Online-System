@@ -15,7 +15,7 @@
 
 	</style>
 	<!-- order section starts  -->
-	<section class="order" id="order">
+	<section class="order text-center" id="order">
 		<h3 class="sub-heading"> Thank you for your order</h3>
 		<h1 class="heading"> A confirmation email was sent. </h1>
         <a href="{{ route('menu.index') }}"  class="btn">Continue Shopping!</a>
