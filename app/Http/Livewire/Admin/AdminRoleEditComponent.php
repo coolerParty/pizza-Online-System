@@ -81,11 +81,11 @@ class AdminRoleEditComponent extends Component
             $permissions = Permission::whereNotIn('name', ['permission-create', 'permission-delete', 'permission-edit'])->get();
         }
 
-        $rolePermissions = DB::table('role_has_permissions')
-        ->where('role_has_permissions.role_id', $this->role_id)
-        ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
-        ->all();
+        // $rolePermissions = DB::table('role_has_permissions')
+        // ->where('role_has_permissions.role_id', $this->role_id)
+        // ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
+        // ->all();
 
-        return view('livewire.admin.admin-role-edit-component', ['permissions' => $permissions, 'rolePermissions'=>$rolePermissions])->layout('layouts.dashboard');
+        return view('livewire.admin.admin-role-edit-component', ['permissions' => $permissions])->layout('layouts.dashboard');
     }
 }

@@ -43,6 +43,8 @@ use App\Http\Livewire\admin\AdminRoleComponent;
 use App\Http\Livewire\admin\AdminRoleAddComponent;
 use App\Http\Livewire\admin\AdminRoleEditComponent;
 
+use App\Http\Livewire\admin\AdminUserRolesComponent;
+use App\Http\Livewire\admin\AdminUserRolesEditComponent;
 
 
 /*
@@ -113,4 +115,7 @@ Route::middleware(['auth:sanctum', 'verified', 'role_or_permission:super-admin|a
     Route::get('/admin/role', AdminRoleComponent::class)->name('admin.role');
     Route::get('/admin/role/add', AdminRoleAddComponent::class)->name('admin.addrole');
     Route::get('/admin/role/edit/{role_id}', AdminRoleEditComponent::class)->name('admin.editrole');
+
+    Route::get('/admin/user-roles', AdminUserRolesComponent::class)->name('admin.userrole');
+    Route::get('/admin/user-roles/edit/{user_id}', AdminUserRolesEditComponent::class)->name('admin.edituserrole');
 });
