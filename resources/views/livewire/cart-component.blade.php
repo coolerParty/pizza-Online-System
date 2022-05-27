@@ -129,8 +129,8 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>
                         <figure class="flex justify-center">
-                            <img class="rounded-full" src="{{ asset('assets/images/product') }}/{{ $item->model->image }}" width="60"
-                                alt="">
+                            <img class="rounded-full"
+                                src="{{ asset('assets/images/product') }}/{{ $item->model->image }}" width="60" alt="">
                         </figure>
                     </td>
                     <td>
@@ -156,8 +156,8 @@
                     </td>
                     <td>
                         <div class="text-right">
-                            <a href="#" class="btn"
-                                wire:click.prevent="switchToSaveForLater('{{ $item->rowId }}')">Save for Later</a>
+                            <a href="#" class="btn" wire:click.prevent="switchToSaveForLater('{{ $item->rowId }}')">Save
+                                for Later</a>
                             <a href="#" wire:click.prevent="destroy('{{ $item->rowId }}')" class="btn btn-delete"
                                 title="">
                                 <span>Remove</span>
@@ -268,7 +268,13 @@
                 @endif
             </tbody>
         </table>
-
+        @if (Session::has('checkout_message'))
+        <div class="clearcart">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h1 class="sub-heading" style="color:red;"><i class="icon fas fa-check"></i> {{ Session::get('checkout_message') }}</h1>
+            </div>
+        </div>
+        @endif
         <div class="clearcart">
             <a class="btn btn-checkout" href="#" wire:click.prevent="checkout">Check out</a>
         </div>
@@ -311,13 +317,13 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach (Cart::instance('saveForLater')->content() as $item)
-            <tr>
+                @foreach (Cart::instance('saveForLater')->content() as $item)
+                <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>
                         <figure class="flex justify-center">
-                            <img class="rounded-full" src="{{ asset('assets/images/product') }}/{{ $item->model->image }}" width="60"
-                                alt="">
+                            <img class="rounded-full"
+                                src="{{ asset('assets/images/product') }}/{{ $item->model->image }}" width="60" alt="">
                         </figure>
                     </td>
                     <td>
@@ -327,17 +333,16 @@
                         <p class="text-right">${{ number_format($item->model->regulary_price, 2) }}</p>
                     </td>
                     <td class="delete text-right">
-                        <a href="#" class="btn"
-                            wire:click.prevent="switchToCart('{{ $item->rowId }}')">Add to Cart</a>
+                        <a href="#" class="btn" wire:click.prevent="switchToCart('{{ $item->rowId }}')">Add to Cart</a>
                         <a href="#" wire:click.prevent="destroySaveForLater('{{ $item->rowId }}')"
                             class="btn btn-delete" title="">
                             <span>Remove</span>
                             <i class="fa fa-times-circle" aria-hidden="true"></i>
                         </a>
                     </td>
-            </tr>
-            @endforeach
-        </tbody>
+                </tr>
+                @endforeach
+            </tbody>
         </table>
         <div class="clearcart">
             <a href="#" wire:click.prevent="destroyAllSavedForLater()" class="btn btn-delete" title="">

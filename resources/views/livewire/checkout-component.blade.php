@@ -249,7 +249,7 @@
 			<div class="inputBox">
 				@if (Session::has('checkout'))
 					<div style="margin-bottom: 1.2rem;">
-						<h1 class="heading">Grand Total: <b>${{ number_format(Session::get('checkout')['total'], 2) }}</b></h1>
+						<h1 class="heading">Grand Total: <b>${{ Session::get('checkout')['total'] }}</b></h1>
 					</div>
 				@endif
 			</div>
