@@ -116,18 +116,18 @@ class CartComponent extends Component
 
     public function checkout()
     {
-        $carts = Cart::instance('cart')->content();
-        foreach($carts as $cart)
-        {
-            $product = Product::select('id','name','quantity')->find($cart->id);
-            if(!$product || $product->quantity < $cart->qty)
-            {
-                session()->flash('checkout_message', 'Product '. $product->name . ' does not have enough stock! Available Stock ' . $product->quantity);
-                return;
-            }
-        }
-
         if (Auth::check()) {
+            $carts = Cart::instance('cart')->content();
+            $products = Product::select('id', 'name', 'quantity')->whereIn('id', $carts->pluck('id'))->pluck('quantity', 'id');
+            foreach ($carts as $cart) {
+                if (
+                    !isset($products[$cart->id])
+                    || (int)$products[$cart->id] < $cart->qty
+                ) {
+                    session()->flash('checkout_message', 'Product ' . $cart->name . ' does not have enough stock! Available Stock ' . $products[$cart->id]);
+                    return;
+                }
+            }
             return redirect()->route('checkout.index');
         } else {
             return redirect()->route('login');

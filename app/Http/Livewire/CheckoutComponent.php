@@ -6,9 +6,11 @@ use Livewire\Component;
 use Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\Shipping;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Stripe;
 
 class CheckoutComponent extends Component
@@ -45,9 +47,10 @@ class CheckoutComponent extends Component
     public $exp_year;
     public $cvc;
 
-    public function updated($fields){
+    public function updated($fields)
+    {
 
-        $this->validateOnly($fields,[
+        $this->validateOnly($fields, [
 
             'firstname'   => 'required',
             'lastname'    => 'required',
@@ -61,11 +64,10 @@ class CheckoutComponent extends Component
             'zipcode'     => 'required',
             'paymentmode' => 'required',
 
-         ]);
+        ]);
 
-         if($this->ship_to_different)
-         {
-            $this->validateOnly($fields,[
+        if ($this->ship_to_different) {
+            $this->validateOnly($fields, [
 
                 's_firstname' => 'required',
                 's_lastname'  => 'required',
@@ -79,52 +81,65 @@ class CheckoutComponent extends Component
                 's_zipcode'   => 'required',
 
             ]);
-         }
+        }
 
-         if($this->paymentmode === 'card')
-         {
-             $this->validateOnly($fields,[
-               'card_no'   => 'required|numeric',
-               'exp_month' => 'required|numeric',
-               'exp_year'  => 'required|numeric',
-               'cvc'       => 'required|numeric',
-             ]);
-         }
-         
+        if ($this->paymentmode === 'card') {
+            $this->validateOnly($fields, [
+                'card_no'   => 'required|numeric',
+                'exp_month' => 'required|numeric',
+                'exp_year'  => 'required|numeric',
+                'cvc'       => 'required|numeric',
+            ]);
+        }
     }
 
     public function placeOrder()
     {
+
         $this->validate([
-           'firstname'   => 'required',
-           'lastname'    => 'required',
-           'email'       => 'required|email',
-           'mobile'      => 'required|numeric',
-           'line1'       => 'required',
-           'line2'       => 'required',
-           'city'        => 'required',
-           'province'    => 'required',
-           'country'     => 'required',
-           'zipcode'     => 'required',
-           'paymentmode' => 'required',
+            'firstname'   => 'required',
+            'lastname'    => 'required',
+            'email'       => 'required|email',
+            'mobile'      => 'required|numeric',
+            'line1'       => 'required',
+            'line2'       => 'required',
+            'city'        => 'required',
+            'province'    => 'required',
+            'country'     => 'required',
+            'zipcode'     => 'required',
+            'paymentmode' => 'required',
         ]);
 
-        if($this->paymentmode === 'card')
-         {
-             $this->validate([
-               'card_no'   => 'required|numeric',
-               'exp_month' => 'required|numeric',
-               'exp_year'  => 'required|numeric',
-               'cvc'       => 'required|numeric',
-             ]);
-         }
+        if ($this->paymentmode === 'card') {
+            $this->validate([
+                'card_no'   => 'required|numeric',
+                'exp_month' => 'required|numeric',
+                'exp_year'  => 'required|numeric',
+                'cvc'       => 'required|numeric',
+            ]);
+        }
+
+        $cartProducts = Cart::instance('cart')->content();
+        $productQuantitys = Product::select('id', 'name', 'quantity')->whereIn('id', $cartProducts->pluck('id'))->pluck('quantity', 'id');
+        foreach ($cartProducts as $cart) {
+            if (
+                !isset($productQuantitys[$cart->id])
+                || (int)$productQuantitys[$cart->id] < $cart->qty
+            ) {
+                session()->flash('checkout_message', 'Product ' . $cart->name . ' does not have enough stock! Available Stock ' . $productQuantitys[$cart->id]);
+                return redirect()->to(route('cart.index'));
+            }
+        }
+
+        DB::transaction(function () {
+
 
         $order            = new Order();
         $order->user_id   = Auth::user()->id;
-        $order->subtotal  = session()->get('checkout')['subtotal'];
-        $order->discount  = session()->get('checkout')['discount'];
-        $order->tax       = session()->get('checkout')['tax'];
-        $order->total     = session()->get('checkout')['total'];
+        $order->subtotal  = str_replace(",", "", session()->get('checkout')['subtotal']);
+        $order->discount  = str_replace(",", "", session()->get('checkout')['discount']);
+        $order->tax       = str_replace(",", "", session()->get('checkout')['tax']);
+        $order->total     = str_replace(",", "", session()->get('checkout')['total']);
         $order->firstname = $this->firstname;
         $order->lastname  = $this->lastname;
         $order->email     = $this->email;
@@ -136,11 +151,10 @@ class CheckoutComponent extends Component
         $order->country   = $this->country;
         $order->zipcode   = $this->zipcode;
         $order->status    = 'ordered';
-        $order->is_shipping_different = $this->ship_to_different ? 1:0;
+        $order->is_shipping_different = $this->ship_to_different ? 1 : 0;
         $order->save();
 
-        foreach(Cart::instance('cart')->content() as $item)
-        {
+        foreach (Cart::instance('cart')->content() as $item) {
             $orderItem             = new OrderItem();
             $orderItem->product_id = $item->id;
             $orderItem->order_id   = $order->id;
@@ -149,8 +163,7 @@ class CheckoutComponent extends Component
             $orderItem->save();
         }
 
-        if($this->ship_to_different)
-        {
+        if ($this->ship_to_different) {
             $this->validate([
                 's_firstname' => 'required',
                 's_lastname'  => 'required',
@@ -162,7 +175,7 @@ class CheckoutComponent extends Component
                 's_province'  => 'required',
                 's_country'   => 'required',
                 's_zipcode'   => 'required',
-             ]);
+            ]);
 
             $shipping = new Shipping();
             $shipping->order_id = $order->id;
@@ -178,16 +191,13 @@ class CheckoutComponent extends Component
             $shipping->zipcode   = $this->s_zipcode;
             $shipping->save();
         }
-        if($this->paymentmode === 'cod')
-        {
-            $this->makeTransaction($order->id,'pending');
+        if ($this->paymentmode === 'cod') {
+            $this->makeTransaction($order->id, 'pending');
             $this->resetCart();
-        }
-        else if($this->paymentmode === "card")
-        {
+        } else if ($this->paymentmode === "card") {
             $stripe = Stripe::make(env('STRIPE_KEY'));
 
-            try{
+            try {
                 $token = $stripe->tokens()->create([
                     'card' => [
                         'number'    => $this->card_no,
@@ -197,9 +207,8 @@ class CheckoutComponent extends Component
                     ]
                 ]);
 
-                if(!isset($token['id']))
-                {
-                    session()->flash('stripe_error','The Stripe token was not generated correctly!');
+                if (!isset($token['id'])) {
+                    session()->flash('stripe_error', 'The Stripe token was not generated correctly!');
                     $this->thankyou = 0;
                 }
 
@@ -214,7 +223,7 @@ class CheckoutComponent extends Component
                         'state'       => $this->province,
                         'country'     => $this->country,
                     ],
-                    'shipping'=> [
+                    'shipping' => [
                         'name'    => $this->firstname . ' ' . $this->lastname,
                         'address' => [
                             'line1'       => $this->line1,
@@ -234,24 +243,19 @@ class CheckoutComponent extends Component
                     'description' => 'Payment for order no ' . $order->id,
                 ]);
 
-                if($charge['status'] == 'succeeded')
-                {
-                    $this->makeTransaction($order->id,'approved');
+                if ($charge['status'] == 'succeeded') {
+                    $this->makeTransaction($order->id, 'approved');
                     $this->resetCart();
-                }
-                else
-                {
-                    session()->flash('stripe_error','Error in Transaction!');
+                } else {
+                    session()->flash('stripe_error', 'Error in Transaction!');
                     $this->thankyou = 0;
                 }
-            } catch(Exception $e)
-            {
-                session()->flash('stripe_error',$e->getMessage());
+            } catch (Exception $e) {
+                session()->flash('stripe_error', $e->getMessage());
                 $this->thankyou = 0;
             }
         }
-
-        
+    });
     }
 
     public function resetCart()
@@ -259,10 +263,10 @@ class CheckoutComponent extends Component
         $this->thankyou = 1;
         Cart::instance('cart')->destroy();
         session()->forget('checkout');
-        $this->emitTo('cart-count-component','refreshComponent'); // refresh cart count display top right menu
+        $this->emitTo('cart-count-component', 'refreshComponent'); // refresh cart count display top right menu
     }
 
-    public function makeTransaction($order_id,$status)
+    public function makeTransaction($order_id, $status)
     {
         $transaction           = new Transaction();
         $transaction->user_id  = Auth::user()->id;
@@ -274,16 +278,11 @@ class CheckoutComponent extends Component
 
     public function verifyForCheckout()
     {
-        if(!Auth::check())
-        {
+        if (!Auth::check()) {
             return redirect()->route('login');
-        }
-        else if($this->thankyou)
-        {
+        } else if ($this->thankyou) {
             return redirect()->route('thankyou');
-        }
-        else if(!session()->get('checkout'))
-        {
+        } else if (!session()->get('checkout')) {
             return redirect()->route('menu.index');
         }
     }

@@ -255,7 +255,7 @@
                 <tr>
                     <td class="flex-space-between">
                         <span>Tax</span>
-                        <strong>${{ number_format(Cart::instance('cart')->tax(), 2) }}</strong>
+                        <strong>${{ Cart::instance('cart')->tax() }}</strong>
                     </td>
                 </tr>
                 <tr>
