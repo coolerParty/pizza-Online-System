@@ -138,19 +138,19 @@
                 <tr>
                     <td class="flex-space-between">
                         <span>Discount</span>
-                        <strong>${{ $order->discount }}</strong>
+                        <strong>${{ number_format($order->discount, 2) }}</strong>
                     </td>
                 </tr>
                 <tr>
                     <td class="flex-space-between">
                         <span>Subtotal</span>
-                        <strong>${{ $order->subtotal }}</strong>
+                        <strong>${{ number_format($order->subtotal, 2) }}</strong>
                     </td>
                 </tr>
                 <tr>
                     <td class="flex-space-between">
                         <span>Tax</span>
-                        <strong>${{ $order->tax }}</strong>
+                        <strong>${{ number_format($order->tax, 2) }}</strong>
                     </td>
                 </tr>
                 <tr>
@@ -162,7 +162,7 @@
                 <tr>
                     <td class="flex-space-between">
                         <span>Total (USD)</span>
-                        <strong>${{ $order->total }}</strong>
+                        <strong>${{ number_format($order->total, 2) }}</strong>
                     </td>
                 </tr>
             </tbody>

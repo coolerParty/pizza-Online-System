@@ -80,8 +80,9 @@ class CartComponent extends Component
 
     public function applyCouponCode()
     {
-        $coupon = Coupon::where('code', $this->couponCode)->where('expiry_date', '>=', Carbon::today())->where('cart_value', '<=', Cart::instance('cart')->subtotal())->first();
-
+        // dd(Cart::instance('cart')->subtotal());
+        $coupon = Coupon::where('code', $this->couponCode)->where('expiry_date', '>=', Carbon::today())->where('cart_value', '<=', str_replace(",", "", Cart::instance('cart')->subtotal()))->first();
+        // dd($coupon);
         if (!$coupon) {
             session()->flash('coupon_message', 'Coupon code is invalid!');
             return;
@@ -100,10 +101,10 @@ class CartComponent extends Component
             if (session()->get('coupon')['type'] == 'fixed') {
                 $this->discount = session()->get('coupon')['value'];
             } else {
-                $this->discount = (Cart::instance('cart')->subtotal() * session()->get('coupon')['value']) / 100;
+                $this->discount = (str_replace(",", "",Cart::instance('cart')->subtotal()) * session()->get('coupon')['value']) / 100;
             }
 
-            $this->subtotalAfterDiscount = Cart::instance('cart')->subtotal() - $this->discount;
+            $this->subtotalAfterDiscount = str_replace(",", "",Cart::instance('cart')->subtotal()) - $this->discount;
             $this->taxAfterDiscount = ($this->subtotalAfterDiscount * config('cart.tax')) / 100;
             $this->totalAfterDiscount = $this->subtotalAfterDiscount + $this->taxAfterDiscount;
         }

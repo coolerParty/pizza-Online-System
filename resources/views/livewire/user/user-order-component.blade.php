@@ -71,10 +71,10 @@
                         <td>{{ $order->id }} </td>
                         <td>{{ $order->firstname }} {{ $order->lastname }}</td>
                         <td>{{ $order->email }} </td>
-                        <td>${{ $order->discount }} </td>
-                        <td>${{ $order->subtotal }} </td>
-                        <td>${{ $order->tax }} </td>
-                        <td>${{ $order->total }} </td>
+                        <td>${{ number_format($order->discount, 2) }} </td>
+                        <td>${{ number_format($order->subtotal, 2) }} </td>
+                        <td>${{ number_format($order->tax, 2) }} </td>
+                        <td>${{ number_format($order->total, 2) }} </td>
                         <td class="text-center text-white">
                             @if( $order->status == 'ordered')
                             <span class="bg-blue-600 py-2 px-4  rounded-full">{{ $order->status }}</span>
@@ -130,10 +130,10 @@
                         <td>{{ $prevOrder->id }} </td>
                         <td>{{ $prevOrder->firstname }} {{ $prevOrder->lastname }}</td>
                         <td>{{ $prevOrder->email }} </td>
-                        <td>${{ $prevOrder->discount }} </td>
-                        <td>${{ $prevOrder->subtotal }} </td>
-                        <td>${{ $prevOrder->tax }} </td>
-                        <td>${{ $prevOrder->total }} </td>
+                        <td>${{ number_format($prevOrder->discount, 2) }} </td>
+                        <td>${{ number_format($prevOrder->subtotal, 2) }} </td>
+                        <td>${{ number_format($prevOrder->tax, 2) }} </td>
+                        <td>${{ number_format($prevOrder->total, 2) }} </td>
                         <td class="text-center text-white">
                             @if( $prevOrder->status == 'ordered')
                             <span class="bg-blue-600 py-2 px-4  rounded-full">{{ $prevOrder->status }}</span>
