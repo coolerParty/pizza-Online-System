@@ -8,7 +8,9 @@ use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\WishlistComponent;
 use App\Http\Livewire\ContactComponent;
 
-use App\Http\Livewire\user\UserDashboardComponent;
+// use App\Http\Livewire\user\UserDashboardComponent;
+use App\Http\Livewire\user\UserReviewComponent;
+use App\Http\Livewire\user\UserReviewEditComponent;
 use App\Http\Livewire\ThankYouComponent;
 
 use App\Http\Livewire\user\UserOrderComponent;
@@ -84,6 +86,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/user/order/{order_id}', UserOrderDetailsComponent::class)->name('user.orderdetail');
 
     Route::get('/user/change-password', UserChangePasswordComponent::class)->name('user.changepassword');
+
+    Route::get('/user/review/{order_item_id}', UserReviewComponent::class)->name('user.review');
+    Route::get('/user/review/edit/{order_item_id}', UserReviewEditComponent::class)->name('user.reviewedit');
+
 });
 
 // For Admin

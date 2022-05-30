@@ -52,7 +52,11 @@
             justify-content: space-between;
         }
 
+
+
         /* history table  Start */
+
+
     </style>
     <!-- ============================================================= = -->
     <!-- Start ORDERED DETAILS Page Content -->
@@ -60,8 +64,8 @@
     <div class="box-container-cart bg-gray-100 p-5">
         <h1 class="heading mt-7"> Order Details </h1>
         <div class="clearcart flex-space-between">
-            <a href="{{ route('user.order') }}" class="btn btn-primary float-end m-1"><i
-                class="fas fa-list mr-2"></i> Back to My Orders</a>
+            <a href="{{ route('user.order') }}" class="btn btn-primary float-end m-1"><i class="fas fa-list mr-2"></i>
+                Back to My Orders</a>
             @if ($order->status == 'ordered')
             <a href="#" class="btn btn-warning float-end m-1" wire:click.prevent="cancelOrder"><i
                     class="fas fa-ban mr-2"></i>
@@ -91,6 +95,12 @@
         <!-- ============================================================= = -->
 
         <h1 class="box-title mt-7">Ordered Items</h1>
+        @if (Session::has('message'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h1 class="sub-heading"><i class="icon fas fa-check"></i> {{ Session::get('message') }}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <table class="h_table">
             <thead>
                 <tr>
@@ -108,25 +118,33 @@
                     <td>{{ $loop->iteration }}</td>
                     <td><img class="rounded-full" src="{{ asset('assets/images/product') }}/{{ $item->product->image }}"
                             width="60px" alt=""></td>
-                    <td>{{ $item->product->name }}</rd>
+                    <td>
+                        <span class="py-2 float-left ">{{ $item->product->name }}</span>
+                        @if($order->status == 'delivered' && $item->rstatus == false)
+                        <a class="float-right bg-green-500 hover:bg-green-600 py-2 px-4  rounded-full text-white shadow" href="{{ route('user.review', ['order_item_id'=> $item->id]) }}">Write Review</a>
+                        @elseif($order->status == 'delivered' && $item->rstatus == true)
+                        <a class="float-right bg-green-500 hover:bg-green-600 py-2 px-4  rounded-full text-white shadow" href="{{ route('user.reviewedit', ['order_item_id'=> $item->id]) }}">Edit Review</a>
+                        @endif
+                    </td>
                     <td>${{ $item->product->regulary_price }}</td>
                     <td>{{ $item->quantity }}</td>
-                    <td class="text-right">${{ number_format($item->product->regulary_price * $item->quantity, 2) }}</td>
+                    <td class="text-right">${{ number_format($item->product->regulary_price * $item->quantity, 2) }}
+                    </td>
                 </tr>
                 @endforeach
                 <tr style="background: rgb(196, 196, 196);">
-                    <td>Total:</rd>
+                    <td>Total:</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td class="text-right">
                         ${{
-                            number_format(
-                                $orderItems->sum(function ($id) {
-                                    return $id['price'] * $id['quantity'];
-                                })
-                            , 2)
+                        number_format(
+                        $orderItems->sum(function ($id) {
+                        return $id['price'] * $id['quantity'];
+                        })
+                        , 2)
                         }}
                     </td>
                 </tr>
