@@ -6,7 +6,6 @@ use App\Http\Livewire\MenuComponent;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\WishlistComponent;
-use App\Http\Livewire\ContactComponent;
 
 // use App\Http\Livewire\user\UserDashboardComponent;
 use App\Http\Livewire\user\UserReviewComponent;
@@ -73,7 +72,6 @@ Route::get('/', HomeComponent::class)->name('home.index');
 Route::get('/menu', MenuComponent::class)->name('menu.index');
 Route::get('/cart', CartComponent::class)->name('cart.index');
 Route::get('/wishlist', WishlistComponent::class)->name('wishlist.index');
-Route::get('/Contact-us', ContactComponent::class)->name('contact');
 
 // For User or Customer
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

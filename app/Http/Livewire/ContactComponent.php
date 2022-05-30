@@ -19,7 +19,7 @@ class ContactComponent extends Component
             'email'   => 'required|email',
             'phone'   => 'required|numeric',
             'comment' => 'required',
-         ]);   
+         ]);
     }
 
     public function sendMessage()
@@ -42,6 +42,6 @@ class ContactComponent extends Component
 
     public function render()
     {
-        return view('livewire.contact-component')->layout('layouts.base');
+        return view('livewire.contact-component');
     }
 }
