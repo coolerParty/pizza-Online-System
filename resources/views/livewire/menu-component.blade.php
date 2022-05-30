@@ -30,13 +30,32 @@
 					<a href="#" class="fas fa-eye"></a>
 					<img src="{{ asset('assets/images/product') }}/{{ $product->image }}" alt="" style="width: 100%;">
 					<h3>{{ $product->name }}</h3>
-					<div class="stars">
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star-half-alt"></i>
-					</div>
+					<div class="stars" style="font-size: 1.6rem!important;">
+                        <style>
+                            .color-gray{
+                                color:rgb(173, 173, 173)!important;
+                            }
+
+                        </style>
+                        @php
+                            $avgrating = 0;
+                            $totalReview = 0;
+                            $totalReview = $product->orderItems->where('rstatus',1)->count();
+                        @endphp
+                        @foreach($product->orderItems->where('rstatus',1) as $orderItem)
+                            @php
+                                $avgrating = $avgrating + $orderItem->review->rating;
+                            @endphp
+                        @endforeach
+                        @for($i=1;$i<=5;$i++)
+                            @if($totalReview <> 0 && $i<=($avgrating/$totalReview))
+                            <i class="fas fa-star"></i>
+                            @else
+                            <i class="fas fa-star color-gray"></i>
+                            @endif
+                        @endfor
+                        <!-- <i class="fas fa-star-half-alt"></i> -->
+                    </div>
 					<span>${{ number_format($product->regulary_price, 2) }}</span>
 					<a href="#" class="btn"
 						wire:click.prevent="store({{ $product->id }}, '{{ $product->name }}',{{ $product->regulary_price }})">add

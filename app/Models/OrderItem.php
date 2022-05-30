@@ -10,7 +10,7 @@ class OrderItem extends Model
     use HasFactory;
 
     protected $table = "order_items";
-    
+
     public function order()
     {
         return $this->belongsTo(Order::Class,'order_id');
@@ -19,6 +19,11 @@ class OrderItem extends Model
     public function product()
     {
         return $this->belongsTo(Product::Class,'product_id');
+    }
+
+    public function review()
+    {
+        return $this->hasOne(Review::Class, 'order_item_id');
     }
 
 }
