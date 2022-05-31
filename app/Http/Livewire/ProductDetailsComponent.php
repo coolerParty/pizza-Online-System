@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Product;
-use App\Models\Review;
 use Cart;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;

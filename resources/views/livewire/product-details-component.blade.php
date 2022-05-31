@@ -196,7 +196,7 @@
                                     <p class="text-xl font-bold leading-none text-gray-800 dark:text-white">{{
                                         $orderItem->order->user->name }}</p>
                                     <p class="text-xl leading-none text-gray-600 dark:text-white">{{
-                                        date('d-M-Y', strtotime($orderItem->review->created_at)) }}</p>
+                                        Carbon\Carbon::parse($orderItem->review->created_at)->format('d F Y g:i A') }}</p>
                                 </div>
                             </div>
                         </div>

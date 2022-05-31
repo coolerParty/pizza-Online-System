@@ -75,7 +75,7 @@
                         width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
-            <input type="submit" value="order now" class="btn" style="background: #04AA6D; width: 100%;">
+            <input type="submit" value="Submit" class="btn" style="background: #04AA6D; width: 100%;">
         </form>
     </section>
     <!-- order section ends -->
