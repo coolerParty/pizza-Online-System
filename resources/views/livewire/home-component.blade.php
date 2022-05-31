@@ -242,86 +242,35 @@
         <div class="swiper-container review-slider">
 
             <div class="swiper-wrapper">
-
+                @foreach($orderItems as $orderItem)
                 <div class="swiper-slide slide">
                     <i class="fas fa-quote-right"></i>
                     <div class="user">
                         <img src="{{ asset('images/pic-1.png') }}" alt="">
                         <div class="user-info">
-                            <h3>john deo</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus
-                        aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis
-                        laborum aspernatur quibusdam. Ipsum, magni.</p>
-                </div>
+                            <h3>{{ $orderItem->order->user->name }}</h3>
+                            <div class="stars" style="font-size: 1.6rem!important;">
+                                <style>
+                                    .color-gray{
+                                        color:rgb(173, 173, 173)!important;
+                                    }
 
-                <div class="swiper-slide slide">
-                    <i class="fas fa-quote-right"></i>
-                    <div class="user">
-                        <img src="{{ asset('images/pic-2.png') }}" alt="">
-                        <div class="user-info">
-                            <h3>john deo</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus
-                        aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis
-                        laborum aspernatur quibusdam. Ipsum, magni.</p>
-                </div>
+                                </style>
 
-                <div class="swiper-slide slide">
-                    <i class="fas fa-quote-right"></i>
-                    <div class="user">
-                        <img src="{{ asset('images/pic-3.png') }}" alt="">
-                        <div class="user-info">
-                            <h3>john deo</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                                @for($i=1;$i<=5;$i++)
+                                    @if($i<=$orderItem->review->rating)
+                                    <i class="fas fa-star"></i>
+                                    @else
+                                    <i class="fas fa-star color-gray"></i>
+                                    @endif
+                                @endfor
                             </div>
                         </div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus
-                        aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis
-                        laborum aspernatur quibusdam. Ipsum, magni.</p>
+                    <h3 class="text-2xl font-bold">{{ $orderItem->review->title }}</h3>
+                    <p>{{ $orderItem->review->comment }}</p>
                 </div>
-
-                <div class="swiper-slide slide">
-                    <i class="fas fa-quote-right"></i>
-                    <div class="user">
-                        <img src="{{ asset('images/pic-4.png') }}" alt="">
-                        <div class="user-info">
-                            <h3>john deo</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit fugiat consequuntur repellendus
-                        aperiam deserunt nihil, corporis fugit voluptatibus voluptate totam neque illo placeat eius quis
-                        laborum aspernatur quibusdam. Ipsum, magni.</p>
-                </div>
+                @endforeach
 
             </div>
 

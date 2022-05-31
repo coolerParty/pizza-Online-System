@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\OrderItem;
 use Livewire\Component;
 use App\Models\Product;
 use Cart;
@@ -46,6 +47,8 @@ class HomeComponent extends Component
             Cart::instance('wishlist')->restore(Auth::user()->email); // save wishlist to database using user email;
         }
 
-        return view('livewire.home-component',['products'=>$products,'witems'=>$witems])->layout('layouts.base');
+        $orderItems = OrderItem::select('id','order_id','product_id')->orderBy('created_at','DESC')->where('rstatus',1)->take(8)->get();
+
+        return view('livewire.home-component',['products'=>$products,'witems'=>$witems,'orderItems'=>$orderItems])->layout('layouts.base');
     }
 }
