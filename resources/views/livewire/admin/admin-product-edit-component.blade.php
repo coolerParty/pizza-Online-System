@@ -57,6 +57,12 @@
 									placeholder="Enter Short Description" wire:model="short_description"></textarea>
 								@error('short_description')<div class="invalid-feedback">{{ $message }}</div>@enderror
 							</div>
+                            <div class="form-group mb-4" wire:ignore>
+								<label for="description">Description</label>
+								<textarea type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+									placeholder="Enter Description" wire:model="description"></textarea>
+								@error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
+							</div>
                             <div class="form-group mb-4">
 								<label for="regulary_price">Regulary Price</label>
 								<input type="decimal" class="form-control @error('regulary_price') is-invalid @enderror" id="regulary_price" name="regulary_price"
@@ -134,12 +140,12 @@
 	<script>
 	 $(function() {
 	  tinymce.init({
-	   selector: '#short_description',
+	   selector: '#description',
 	   setup: function(editor) {
 	    editor.on('Change', function(e) {
 	     tinyMCE.triggerSave();
-	     var sd_data = $('#short_description').val();
-	     @this.set('short_description', sd_data);
+	     var sd_data = $('#description').val();
+	     @this.set('description', sd_data);
 	    })
 	   }
 	  });

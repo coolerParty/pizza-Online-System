@@ -15,6 +15,7 @@ class AdminProductAddComponent extends Component
     use WithFileUploads;
     public $name;
     public $short_description;
+    public $description;
     public $regulary_price;
     public $sale_price;
     public $stock_status;
@@ -31,34 +32,37 @@ class AdminProductAddComponent extends Component
     public function updated($fields)
     {
         $this->validateOnly($fields,[
-            'name'              => 'required|max:120|unique:products',
-            'short_description' => 'required|max:200',
-            'regulary_price'    => 'required|numeric|between:0,5000.99',
-            'sale_price'        => 'nullable|numeric|between:0,5000.99',
-            'stock_status'      => 'required',
-            'category_id'       => 'required',
-            'quantity'          => 'required',
-            'image'             => 'required|mimes:jpeg,jpg,png|max:2000',
+            'name'              => ['required','max:120','unique:products'],
+            'short_description' => ['required','max:200'],
+            'description'       => ['required'],
+            'regulary_price'    => ['required','numeric','between:0,5000.99'],
+            'sale_price'        => ['nullable','numeric','between:0,5000.99'],
+            'stock_status'      => ['required'],
+            'category_id'       => ['required'],
+            'quantity'          => ['required'],
+            'image'             => ['required','mimes:jpeg,jpg,png','max:2000'],
         ]);
     }
 
     public function addProduct()
     {
         $this->validate([
-            'name'              => 'required|max:120|unique:products',
-            'short_description' => 'required|max:200',
-            'regulary_price'    => 'required|numeric|between:0,5000.99',
-            'sale_price'        => 'nullable|numeric|between:0,5000.99',
-            'stock_status'      => 'required',
-            'category_id'       => 'required',
-            'quantity'          => 'required',
-            'image'             => 'required|mimes:jpeg,jpg,png|max:2000',
+            'name'              => ['required','max:120','unique:products'],
+            'short_description' => ['required','max:200'],
+            'description'       => ['required'],
+            'regulary_price'    => ['required','numeric','between:0,5000.99'],
+            'sale_price'        => ['nullable','numeric','between:0,5000.99'],
+            'stock_status'      => ['required'],
+            'category_id'       => ['required'],
+            'quantity'          => ['required'],
+            'image'             => ['required','mimes:jpeg,jpg,png','max:2000'],
        ]);
 
         $product                    = new Product();
         $product->name              = $this->name;
         $product->slug              = Str::slug($this->name);
         $product->short_description = $this->short_description;
+        $product->description       = $this->description;
         $product->regulary_price    = $this->regulary_price;
         $product->sale_price        = $this->sale_price;
         $product->stock_status      = $this->stock_status;

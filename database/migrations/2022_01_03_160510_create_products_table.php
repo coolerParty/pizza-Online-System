@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('short_description');
+            $table->text('description');
             $table->float('regulary_price',8,2);
             $table->float('sale_price',8,2)->nullable();
             $table->enum('stock_status',['instock','outofstock']);

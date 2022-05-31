@@ -81,7 +81,7 @@
                 <a href="#" class="fas fa-heart"
                     wire:click.prevent="addToWishlist({{ $product->id }}, '{{ $product->name }}',{{ $product->regulary_price }})"></a>
                 @endif
-                <a href="#" class="fas fa-eye"></a>
+                <a href="{{ route('menu.details',['product_id'=>$product->id,'slug'=>$product->slug]) }}" class="fas fa-eye"></a>
                 <img src="{{ asset('assets/images/product') }}/{{ $product->image }}" alt="" style="width: 100%;">
                 <h3>{{ $product->name }}</h3>
                 <div class="stars" style="font-size: 1.6rem!important;">
