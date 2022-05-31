@@ -1379,9 +1379,6 @@ select {
 .border-2 {
   border-width: 2px;
 }
-.border-4 {
-  border-width: 4px;
-}
 .border-b-2 {
   border-bottom-width: 2px;
 }
@@ -1419,10 +1416,6 @@ select {
 .border-gray-400 {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
-}
-.border-green-600 {
-  --tw-border-opacity: 1;
-  border-color: rgb(22 163 74 / var(--tw-border-opacity));
 }
 .bg-white {
   --tw-bg-opacity: 1;
@@ -1801,12 +1794,6 @@ select {
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-.accent-transparent {
-  accent-color: transparent;
-}
-.accent-pink-500 {
-  accent-color: #ec4899;
 }
 .opacity-0 {
   opacity: 0;
