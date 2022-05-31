@@ -12,7 +12,7 @@
 
     <section class="order" id="order" style="margin: 100px auto 50px auto; background: #fff!important;">
 
-        {{-- <h3 class="sub-heading"> order now </h3> --}}
+        <h3 class="sub-heading"> Customer's Feedback </h3>
         <h1 class="heading"> Contact Us </h1>
         @if (Session::has('message'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">

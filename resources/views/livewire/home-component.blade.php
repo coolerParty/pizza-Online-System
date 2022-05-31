@@ -239,7 +239,7 @@
         <h3 class="sub-heading"> customer's review </h3>
         <h1 class="heading"> what they say </h1>
 
-        <div class="swiper-container review-slider">
+        <div class="swiper-container review-slider" wire:ignore>
 
             <div class="swiper-wrapper">
                 @foreach($orderItems as $orderItem)
