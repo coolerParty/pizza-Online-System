@@ -72,7 +72,7 @@ Terminal
 
     cd "directory file"
     git clone https://github.com/coolerParty/pizza-Online-System.git
-    cd Task-with-Role-and-Permission
+    cd pizza-Online-System
     composer install
 
 Rename ".env.example" file to ".env" then Edit 
