@@ -160,7 +160,7 @@
                         <div class="flex flex-col md:flex-row justify-between w-full">
                             <div class="flex flex-row justify-between items-start">
                                 <p class="text-xl md:text-2xl font-bold leading-normal text-gray-800 dark:text-white">
-                                    Beautiful addition to the theme</p>
+                                    {{ $orderItem->review->title}}</p>
 
                             </div>
                             <div class="cursor-pointer mt-2 md:mt-0">

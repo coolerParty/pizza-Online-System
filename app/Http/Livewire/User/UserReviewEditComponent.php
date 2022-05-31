@@ -11,6 +11,7 @@ use Livewire\Component;
 class UserReviewEditComponent extends Component
 {
     public $order_item_id;
+    public $title;
     public $rating;
     public $comment;
     public $order_id;
@@ -19,6 +20,7 @@ class UserReviewEditComponent extends Component
     {
         $this->order_item_id = $order_item_id;
         $review = Review::where('order_item_id',$order_item_id)->first();
+        $this->title = $review->title;
         $this->rating = $review->rating;
         $this->comment = $review->comment;
     }
@@ -26,6 +28,7 @@ class UserReviewEditComponent extends Component
     public function updated($fields)
     {
         $this->validateOnly($fields,[
+            'title' => 'required',
             'rating' => 'required',
             'comment' => 'required',
         ]);
@@ -34,6 +37,7 @@ class UserReviewEditComponent extends Component
     public function editReview()
     {
         $this->validate([
+            'title' => 'required',
             'rating' => 'required',
             'comment' => 'required',
         ]);
@@ -45,6 +49,7 @@ class UserReviewEditComponent extends Component
         }
 
         $review = Review::where('order_item_id',$this->order_item_id)->first();
+        $review->title = $this->title;
         $review->rating = $this->rating;
         $review->comment = $this->comment;
         $review->save();

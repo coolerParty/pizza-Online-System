@@ -1224,10 +1224,6 @@ select {
   --tw-translate-y: 0px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
-.rotate-180 {
-  --tw-rotate: 180deg;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
 .scale-95 {
   --tw-scale-x: .95;
   --tw-scale-y: .95;
@@ -1246,9 +1242,6 @@ select {
 }
 .cursor-pointer {
   cursor: pointer;
-}
-.cursor-none {
-  cursor: none;
 }
 .list-inside {
   list-style-position: inside;
@@ -1386,6 +1379,9 @@ select {
 .border-2 {
   border-width: 2px;
 }
+.border-4 {
+  border-width: 4px;
+}
 .border-b-2 {
   border-bottom-width: 2px;
 }
@@ -1423,6 +1419,10 @@ select {
 .border-gray-400 {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
+}
+.border-green-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(22 163 74 / var(--tw-border-opacity));
 }
 .bg-white {
   --tw-bg-opacity: 1;
@@ -1802,6 +1802,12 @@ select {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.accent-transparent {
+  accent-color: transparent;
+}
+.accent-pink-500 {
+  accent-color: #ec4899;
+}
 .opacity-0 {
   opacity: 0;
 }
@@ -2099,14 +2105,6 @@ select {
 }
 @media (prefers-color-scheme: dark) {
 
-  .dark\:block {
-    display: block;
-  }
-
-  .dark\:hidden {
-    display: none;
-  }
-
   .dark\:border-gray-700 {
     --tw-border-opacity: 1;
     border-color: rgb(55 65 81 / var(--tw-border-opacity));
@@ -2365,16 +2363,8 @@ select {
     display: grid;
   }
 
-  .md\:hidden {
-    display: none;
-  }
-
   .md\:w-9\/12 {
     width: 75%;
-  }
-
-  .md\:w-full {
-    width: 100%;
   }
 
   .md\:grid-cols-3 {
@@ -2408,11 +2398,6 @@ select {
   .md\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-  }
-
-  .md\:px-8 {
-    padding-left: 2rem;
-    padding-right: 2rem;
   }
 
   .md\:text-2xl {

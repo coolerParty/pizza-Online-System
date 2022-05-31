@@ -27,16 +27,23 @@
                     <span>Product</span>
                     <span style="border-bottom: 1px solid rgb(5, 155, 0); padding: 10px;"><b>{{
                             $orderItem->product->name }}</b></span>
+                    <span>Price</span>
+                    <span style="border-bottom: 1px solid rgb(5, 155, 0); padding: 10px;"><b>${{
+                            number_format($orderItem->product->regulary_price,2) }}</b></span>
                 </div>
                 <div class="input">
+                    <span>Title</span>
+                    @error('title')<div class="err_feedback">{{ $message }}</div>@enderror
+                    <input name="title" placeholder="enter your title" class="@error('title') err_input @enderror"
+                        id="title"  wire:model="title">
                     <span>Rate</span>
                     <div class="stars" style="font-size: 1.6rem!important;">
                         <div class="flex flex-row space-x-1">
-                            <span><input type="radio" id="rated-1" name="rating" value="1" wire:model="rating"></span>
-                            <span><input type="radio" id="rated-2" name="rating" value="2" wire:model="rating"></span>
-                            <span><input type="radio" id="rated-3" name="rating" value="3" wire:model="rating"></span>
-                            <span><input type="radio" id="rated-4" name="rating" value="4" wire:model="rating"></span>
-                            <span><input type="radio" id="rated-5" name="rating" value="5" checked="checked"
+                            <span><input style="@if(1 <= $rating) border: 1px solid green!important; @endif" type="radio" id="rated-1" name="rating" value="1" wire:model="rating"></span>
+                            <span><input style="@if(2 <= $rating) border: 1px solid green!important; @endif" type="radio" id="rated-2" name="rating" value="2" wire:model="rating"></span>
+                            <span><input style="@if(3 <= $rating) border: 1px solid green!important; @endif" type="radio" id="rated-3" name="rating" value="3" wire:model="rating"></span>
+                            <span><input style="@if(4 <= $rating) border: 1px solid green!important; @endif" type="radio" id="rated-4" name="rating" value="4" wire:model="rating"></span>
+                            <span><input style="@if(5 <= $rating) border: 1px solid green!important; @endif" type="radio" id="rated-5" name="rating" value="5" checked="checked"
                                     wire:model="rating"></span>
                         </div>
                     </div>
