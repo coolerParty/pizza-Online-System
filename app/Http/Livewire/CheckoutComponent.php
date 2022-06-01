@@ -7,8 +7,10 @@ use Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Profile;
 use App\Models\Shipping;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Stripe;
@@ -47,6 +49,32 @@ class CheckoutComponent extends Component
     public $exp_year;
     public $cvc;
 
+    public function mount()
+    {
+        $userProfile = Profile::select('id', 'user_id', 'image', 'mobile', 'line1', 'line2', 'city', 'province', 'country', 'zipcode')
+            ->where('user_id', Auth::user()->id)->first();
+
+        if (!$userProfile) {
+            $profile = new Profile();
+            $profile->user_id = Auth::user()->id;
+            $profile->save();
+            return redirect()->to(route('user.profileedit'));
+        }
+
+        $this->image    = $userProfile->image;
+        $this->mobile   = $userProfile->mobile;
+        $this->line1    = $userProfile->line1;
+        $this->line2    = $userProfile->line2;
+        $this->city     = $userProfile->city;
+        $this->province = $userProfile->province;
+        $this->country  = $userProfile->country;
+        $this->zipcode  = $userProfile->zipcode;
+
+        $user = User::select('name', 'lastname', 'email')->where('id', Auth::user()->id)->first();
+        $this->firstname     = $user->name;
+        $this->lastname = $user->lastname;
+        $this->email    = $user->email;
+    }
     public function updated($fields)
     {
 

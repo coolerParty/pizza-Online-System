@@ -27,6 +27,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'lastname',
         'email',
         'password',
     ];
@@ -64,5 +65,10 @@ class User extends Authenticatable
     public function order()
     {
         return $this->hasMany(Order::class,'user_id');
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class,'user_id');
     }
 }

@@ -246,7 +246,11 @@
                 <div class="swiper-slide slide">
                     <i class="fas fa-quote-right"></i>
                     <div class="user">
+                        @if($orderItem->order->user->profile->image)
+                        <img src="{{ asset('assets/images/profile/cover') }}/{{ $orderItem->order->user->profile->image }}" alt="">
+                        @else
                         <img src="{{ asset('images/pic-1.png') }}" alt="">
+                        @endif
                         <div class="user-info">
                             <h3>{{ $orderItem->order->user->name }}</h3>
                             <div class="stars" style="font-size: 1.6rem!important;">

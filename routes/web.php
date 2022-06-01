@@ -11,6 +11,8 @@ use App\Http\Livewire\ProductDetailsComponent;
 // use App\Http\Livewire\user\UserDashboardComponent;
 use App\Http\Livewire\user\UserReviewComponent;
 use App\Http\Livewire\user\UserReviewEditComponent;
+use App\Http\Livewire\user\UserProfileComponent;
+use App\Http\Livewire\user\UserProfileEditComponent;
 use App\Http\Livewire\ThankYouComponent;
 
 use App\Http\Livewire\user\UserOrderComponent;
@@ -90,6 +92,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/user/review/{order_item_id}', UserReviewComponent::class)->name('user.review');
     Route::get('/user/review/edit/{order_item_id}', UserReviewEditComponent::class)->name('user.reviewedit');
+
+    Route::get('/user/profile', UserProfileComponent::class)->name('user.profile');
+    Route::get('/user/profile/edit', UserProfileEditComponent::class)->name('user.profileedit');
+
 
 });
 

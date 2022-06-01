@@ -244,22 +244,16 @@
                     </div>
                     @error('paymentmode') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
-
                 <div class="input">
-                    <h1 class="sub-heading">Shipping Method</h1>
-                    <span>Discount Codes</span>
-                    <input type="text" placeholder="enter coupon code">
+                    @if (Session::has('checkout'))
+                    <div style="margin-top: 6rem;">
+                        <h1 class="heading">Grand Total: <b>${{ Session::get('checkout')['total'] }}</b></h1>
+                    </div>
+                    @endif
                 </div>
-
             </div>
 
-            <div class="inputBox">
-                @if (Session::has('checkout'))
-                <div style="margin-bottom: 1.2rem;">
-                    <h1 class="heading">Grand Total: <b>${{ Session::get('checkout')['total'] }}</b></h1>
-                </div>
-                @endif
-            </div>
+
 
             <button type="submit" class="btn w-full" style="background: #04AA6D;">Place Order Now</button>
             @if (Session::has('checkout_message'))

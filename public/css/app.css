@@ -1192,8 +1192,11 @@ select {
 .max-w-6xl {
   max-width: 72rem;
 }
-.max-w-2xl {
-  max-width: 42rem;
+.max-w-screen-lg {
+  max-width: 1024px;
+}
+.max-w-screen-md {
+  max-width: 768px;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1529,6 +1532,9 @@ select {
 .p-8 {
   padding: 2rem;
 }
+.p-10 {
+  padding: 2.5rem;
+}
 .p-4 {
   padding: 1rem;
 }
@@ -1677,17 +1683,21 @@ select {
   font-size: 1.875rem;
   line-height: 2.25rem;
 }
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
 .font-medium {
   font-weight: 500;
 }
 .font-semibold {
   font-weight: 600;
 }
-.font-extrabold {
-  font-weight: 800;
-}
 .font-bold {
   font-weight: 700;
+}
+.font-extrabold {
+  font-weight: 800;
 }
 .uppercase {
   text-transform: uppercase;
@@ -2260,10 +2270,6 @@ select {
     justify-content: space-between;
   }
 
-  .sm\:overflow-hidden {
-    overflow: hidden;
-  }
-
   .sm\:rounded-lg {
     border-radius: 0.5rem;
   }
@@ -2321,11 +2327,6 @@ select {
 
   .sm\:text-right {
     text-align: right;
-  }
-
-  .sm\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
   }
 }
 @media (min-width: 768px) {
@@ -2422,16 +2423,12 @@ select {
     display: grid;
   }
 
-  .lg\:max-w-7xl {
-    max-width: 80rem;
+  .lg\:max-w-screen-lg {
+    max-width: 1024px;
   }
 
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .lg\:grid-cols-1 {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   .lg\:grid-rows-\[auto\2c auto\2c 1fr\] {
@@ -2441,10 +2438,6 @@ select {
   .lg\:gap-x-8 {
     -moz-column-gap: 2rem;
          column-gap: 2rem;
-  }
-
-  .lg\:gap-y-8 {
-    row-gap: 2rem;
   }
 
   .lg\:border-r {

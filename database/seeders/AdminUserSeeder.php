@@ -16,6 +16,7 @@ class AdminUserSeeder extends Seeder
     {
         $adminUser = User::factory()->create([
             'name' => 'SuperAdmin',
+            'lastname' => 'SA',
             'email' => 'superadmin@admin.com',
             'password' => bcrypt('1234567890')
         ]);
@@ -23,6 +24,7 @@ class AdminUserSeeder extends Seeder
 
         $adminUser = User::factory()->create([
             'name' => 'Admin',
+            'lastname' => 'A',
             'email' => 'admin@admin.com',
             'password' => bcrypt('1234567890')
         ]);
