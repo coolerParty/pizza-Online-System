@@ -91,7 +91,6 @@
                                         <td>{{ $product->category->name }}</td>
                                         <td>{{ $product->quantity }}</td>
                                         <td>
-
                                             <div class="dropdown">
 												<button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
 													data-bs-toggle="dropdown" aria-expanded="false">

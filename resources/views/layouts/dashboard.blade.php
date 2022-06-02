@@ -187,6 +187,13 @@
 										</a>
 									</li>
                                     <li class="sidebar-item">
+										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.about') }}"
+											aria-expanded="false">
+											<i class="fas fa-id-card" aria-hidden="true"></i>
+											<span class="hide-menu">About</span>
+										</a>
+									</li>
+                                    <li class="sidebar-item">
 										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.userrole') }}"
 											aria-expanded="false">
 											<i class="fas fa-users" aria-hidden="true"></i>
