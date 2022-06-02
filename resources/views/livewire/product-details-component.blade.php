@@ -111,7 +111,7 @@
                                 <div class="space-y-6">
                                     <p class="text-base text-gray-900" style="font-size: 1.5rem!important;">{{ $product->short_description }}</p>
                                 </div>
-                                <div class="space-y-6">
+                                <div class="space-y-6 mt-6">
                                     <d class="text-gray-900" style="font-size: 1.5em!important;">{!! $product->description !!}</d>
                                 </div>
                             </div>
