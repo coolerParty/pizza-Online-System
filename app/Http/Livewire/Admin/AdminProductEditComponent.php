@@ -23,6 +23,7 @@ class AdminProductEditComponent extends Component
     public $stock_status;
     public $category_id;
     public $quantity;
+    public $featured;
     public $image;
     public $newimage;
 
@@ -38,6 +39,7 @@ class AdminProductEditComponent extends Component
         $this->stock_status      = $product->stock_status;
         $this->category_id       = $product->category_id;
         $this->quantity          = $product->quantity;
+        $this->featured          = $product->featured;
         $this->image             = $product->image;
     }
 
@@ -53,6 +55,7 @@ class AdminProductEditComponent extends Component
             'stock_status'      => ['required'],
             'category_id'       => ['required'],
             'quantity'          => ['required'],
+            'featured'          => ['required'],
 
         ]);
 
@@ -74,6 +77,7 @@ class AdminProductEditComponent extends Component
             'stock_status'      => ['required'],
             'category_id'       => ['required'],
             'quantity'          => ['required'],
+            'featured'          => ['required'],
        ]);
 
        if($this->newimage)
@@ -91,6 +95,7 @@ class AdminProductEditComponent extends Component
         $product->stock_status      = $this->stock_status;
         $product->category_id       = $this->category_id;
         $product->quantity          = $this->quantity;
+        $product->featured          = $this->featured;
 
         if($this->newimage)
         {

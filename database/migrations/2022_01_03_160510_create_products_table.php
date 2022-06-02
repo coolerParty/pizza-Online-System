@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id')->constrained();
             $table->unsignedInteger('quantity')	->default(10);
             $table->string('image');
+            $table->boolean('featured')->default(false);
             $table->timestamps();
         });
     }

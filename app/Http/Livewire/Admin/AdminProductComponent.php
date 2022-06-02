@@ -21,12 +21,21 @@ class AdminProductComponent extends Component
             session()->flash('del_message','No Product has been found!');
             return redirect()->to(route('admin.product'));
         }
-        
+
+    }
+
+    public function updateFeature($product_id, $featured)
+    {
+        $product = Product::find($product_id);
+        $product->featured = $featured;
+        $product->save();
+        session()->flash('order_message','Product feature has been updated successfully to '. $featured . '!');
+        return redirect()->to(route('admin.product'));
     }
 
     public function render()
     {
-        $products = Product::select('id','name','stock_status','category_id','quantity','image','created_at')->orderby('name','ASC')->get();
+        $products = Product::select('id','name','stock_status','category_id','quantity','image','featured','created_at')->orderby('name','ASC')->get();
         return view('livewire.admin.admin-product-component',['products'=>$products])->layout('layouts.dashboard');
     }
 }

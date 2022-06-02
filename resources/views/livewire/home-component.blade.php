@@ -176,16 +176,16 @@
 
         <div class="box-container">
 
-            @foreach ($products as $product)
-            <div class="box @if($witems->contains($product->id)) green-wish-box @endif">
+            @foreach ($featuredProducts as $fproduct)
+            <div class="box @if($witems->contains($fproduct->id)) green-wish-box @endif">
                 <div class="image">
-                    <img src="{{ asset('assets/images/product') }}/{{ $product->image }}" alt="">
-                    @if ($witems->contains($product->id))
+                    <img src="{{ asset('assets/images/product') }}/{{ $fproduct->image }}" alt="">
+                    @if ($witems->contains($fproduct->id))
                     <a href="#" class="fas fa-heart wish-product"
-                        wire:click.prevent="removeFromWishlist({{ $product->id }})"></a>
+                        wire:click.prevent="removeFromWishlist({{ $fproduct->id }})"></a>
                     @else
                     <a href="#" class="fas fa-heart"
-                        wire:click.prevent="addToWishlist({{ $product->id }}, '{{ $product->name }}',{{ $product->regulary_price }})"></a>
+                        wire:click.prevent="addToWishlist({{ $fproduct->id }}, '{{ $fproduct->name }}',{{ $fproduct->regulary_price }})"></a>
                     @endif
                 </div>
                 <div class="content">
@@ -199,9 +199,9 @@
                         @php
                             $avgrating = 0;
                             $totalReview = 0;
-                            $totalReview = $product->orderItems->where('rstatus',1)->count();
+                            $totalReview = $fproduct->orderItems->where('rstatus',1)->count();
                         @endphp
-                        @foreach($product->orderItems->where('rstatus',1) as $orderItem)
+                        @foreach($fproduct->orderItems->where('rstatus',1) as $orderItem)
                             @php
                                 $avgrating = $avgrating + $orderItem->review->rating;
                             @endphp
@@ -214,14 +214,14 @@
                             @endif
                         @endfor
                         <!-- <i class="fas fa-star-half-alt"></i> -->
-                        <span>({{ $product->orderItems->where('rstatus',1)->count() }}) review</span>
+                        <span>({{ $fproduct->orderItems->where('rstatus',1)->count() }}) review</span>
                     </div>
-                    <h3>{{ $product->name }}</h3>
-                    <p>{{ $product->short_description }}</p>
+                    <h3>{{ $fproduct->name }}</h3>
+                    <p>{{ $fproduct->short_description }}</p>
                     <a href="#" class="btn"
-                        wire:click.prevent="store({{ $product->id }}, '{{ $product->name }}',{{ $product->regulary_price }})">add
+                        wire:click.prevent="store({{ $fproduct->id }}, '{{ $fproduct->name }}',{{ $fproduct->regulary_price }})">add
                         to cart</a>
-                    <span class="price">${{ number_format($product->regulary_price,2) }}</span>
+                    <span class="price">${{ number_format($fproduct->regulary_price,2) }}</span>
                 </div>
             </div>
             @endforeach
@@ -275,30 +275,8 @@
                     <p>{{ $orderItem->review->comment }}</p>
                 </div>
                 @empty
-                <div class="swiper-slide slide">
-                    <i class="fas fa-quote-right"></i>
-                    <div class="user">
-                        <img src="{{ asset('images/pic-1.png') }}" alt="">
-                        <div class="user-info">
-                            <h3></h3>
-                            <div class="stars" style="font-size: 1.6rem!important;">
-                                <style>
-                                    .color-gray{
-                                        color:rgb(173, 173, 173)!important;
-                                    }
 
-                                </style>
-                                <i class="fas fa-star color-gray"></i>
-                                <i class="fas fa-star color-gray"></i>
-                                <i class="fas fa-star color-gray"></i>
-                                <i class="fas fa-star color-gray"></i>
-                                <i class="fas fa-star color-gray"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold">No Review!</h3>
-                    <p>There is no customer review at the moment.</p>
-                </div>
+                    <h1 class="sub-heading w-full m-12"> No Review Yet! </h1>
                 @endforelse
 
             </div>

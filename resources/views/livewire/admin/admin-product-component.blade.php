@@ -76,6 +76,7 @@
 									<th class="border-top-0">Stock</th>
 									<th class="border-top-0">Category</th>
 									<th class="border-top-0">Quatity</th>
+									<th class="border-top-0">featured</th>
 									<th class="border-top-0">Date</th>
 									<th class="border-top-0">Action</th>
 								</tr>
@@ -88,7 +89,31 @@
 										<td>{{ $product->name }}</td>
                                         <td>{{ $product->stock_status }}</td>
                                         <td>{{ $product->category->name }}</td>
-                                        <td>{{ $product->quantity }}</td>                                        
+                                        <td>{{ $product->quantity }}</td>
+                                        <td>
+
+                                            <div class="dropdown">
+												<button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
+													data-bs-toggle="dropdown" aria-expanded="false">
+                                                    @if($product->featured == false)
+                                                    No
+                                                    @else
+                                                    Yes
+                                                    @endif
+                                                    <span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    @if($product->featured == false)
+                                                    <li><a class="dropdown-item" href="#"
+                                                        wire:click.prevent="updateFeature({{ $product->id }},'1')">Yes</a></li>
+                                                    @else
+                                                        <li><a class="dropdown-item" href="#"
+                                                        wire:click.prevent="updateFeature({{ $product->id }},'0')">No</a></li>
+                                                    @endif
+												</ul>
+
+											</div>
+                                        </td>
 										<td>{{ Carbon\Carbon::parse($product->created_at)->format('m/d/Y') }}</td>
 										<td>
 											<a href="{{ route('admin.editproduct', ['product_id' => $product->id]) }}"

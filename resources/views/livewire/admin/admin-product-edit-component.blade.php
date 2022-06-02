@@ -113,6 +113,16 @@
                                     @endif
                                     @error('newimage') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
+                            <div class="form-group mb-4">
+                                <label for="featured">Featured</label>
+                                <div class="border-bottom">
+                                    <select class="form-select @error('featured') is-invalid @enderror" id="featured" name="featured" wire:model="featured" wire:ignore>
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                    @error('featured')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                </div>
+                            </div>
 
 						</div>
 						<button type="submit" class="btn btn-success"><i class="fas fa-plus-circle mr-2"></i> Submit</button>

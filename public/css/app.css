@@ -983,6 +983,9 @@ select {
 .m-2 {
   margin: 0.5rem;
 }
+.m-12 {
+  margin: 3rem;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;

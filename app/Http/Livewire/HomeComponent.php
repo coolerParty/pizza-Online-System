@@ -39,6 +39,7 @@ class HomeComponent extends Component
     public function render()
     {
         $products = Product::select('id','name','regulary_price','short_description','image','slug')->orderby('created_at','ASC')->limit(8)->get();
+        $featuredProducts = Product::select('id','name','regulary_price','short_description','image','slug')->where('featured', true)->orderby('created_at','ASC')->limit(8)->get();
         $witems = Cart::instance('wishlist')->content()->pluck('id');
 
         if(Auth::check())
@@ -48,7 +49,6 @@ class HomeComponent extends Component
         }
 
         $orderItems = OrderItem::select('id','order_id','product_id')->orderBy('created_at','DESC')->where('rstatus',1)->take(8)->get();
-
-        return view('livewire.home-component',['products'=>$products,'witems'=>$witems,'orderItems'=>$orderItems])->layout('layouts.base');
+        return view('livewire.home-component',['products'=>$products,'witems'=>$witems,'orderItems'=>$orderItems,'featuredProducts'=>$featuredProducts])->layout('layouts.base');
     }
 }
