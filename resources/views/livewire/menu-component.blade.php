@@ -11,16 +11,19 @@
 	<!-- dishes section starts  -->
 	<section class="dishes" id="dishes" style="margin: 100px auto; background: #fff!important;">
 		<h3 class="sub-heading"> our dishes </h3>
-		<h1 class="heading"> popular dishes </h1>
-		@if (Session::has('cart_message'))
+        @if (Session::has('cart_message'))
 			<div class="alert alert-success alert-dismissible fade show" role="alert">
 				<h1 class="sub-heading"><i class="icon fas fa-check"></i> {{ Session::get('cart_message') }}</h1>
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
 		@endif
-		<div class="box-container">
+        @foreach($categories as $category)
+		<h1 class="heading"> {{ $category->name }} </h1>
+
+		<div class="box-container mb-20">
 			@foreach ($products as $product)
-				<div class="box @if($witems->contains($product->id)) green-wish-box @endif">
+                @if($product->category_id == $category->id)
+				<div class="box @if($witems->contains($product->id)) green-wish-box @endif md:max-w-xl lg:max-w-md mx-auto">
 					@if ($witems->contains($product->id))
 						<a href="#" class="fas fa-heart wish-product" wire:click.prevent="removeFromWishlist({{ $product->id }})"></a>
 					@else
@@ -62,8 +65,10 @@
 						to
 						cart</a>
 				</div>
+                @endif
 			@endforeach
 		</div>
+        @endforeach
 	</section>
 	<!-- dishes section ends -->
 </div>

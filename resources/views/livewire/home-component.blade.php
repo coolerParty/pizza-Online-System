@@ -73,7 +73,7 @@
         <div class="box-container">
 
             @foreach ($products as $product)
-            <div class="box @if($witems->contains($product->id)) green-wish-box @endif">
+            <div class="box @if($witems->contains($product->id)) green-wish-box @endif md:max-w-xl lg:max-w-md mx-auto">
                 @if ($witems->contains($product->id))
                 <a href="#" class="fas fa-heart wish-product"
                     wire:click.prevent="removeFromWishlist({{ $product->id }})"></a>

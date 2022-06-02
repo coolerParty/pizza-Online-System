@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use Livewire\Component;
 use App\Models\Product;
 use Cart;
@@ -12,7 +13,7 @@ class MenuComponent extends Component
 
     public function store($product_id, $product_name, $product_price)
     {
-        Cart::instance('cart')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product'); 
+        Cart::instance('cart')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
         $this->emitTo('cart-count-component','refreshComponent'); // refresh cart count display top right menu
         session()->flash('cart_message','"'.$product_name . '" has been added to cart!');
     }
@@ -38,7 +39,8 @@ class MenuComponent extends Component
 
     public function render()
     {
-        $products = Product::select('id','name','regulary_price','image','slug')->orderby('created_at','ASC')->get();
+        $products = Product::select('id','name','regulary_price','image','slug','category_id')->orderby('created_at','ASC')->get();
+        $categories = Category::select('id','name')->get();
         $witems = Cart::instance('wishlist')->content()->pluck('id');
 
         if(Auth::check())
@@ -47,6 +49,6 @@ class MenuComponent extends Component
             Cart::instance('wishlist')->store(Auth::user()->email); // save wishlist to database using user email;
         }
 
-        return view('livewire.menu-component',['products'=>$products,'witems'=>$witems])->layout('layouts.base');
+        return view('livewire.menu-component',['products'=>$products,'witems'=>$witems,'categories'=>$categories])->layout('layouts.base');
     }
 }
