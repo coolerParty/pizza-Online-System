@@ -149,6 +149,13 @@
 											<span class="hide-menu">Dashboard</span>
 										</a>
 									</li>
+                                    <li class="sidebar-item">
+										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.homeslider') }}"
+											aria-expanded="false">
+											<i class="fas fa-dot-circle" aria-hidden="true"></i>
+											<span class="hide-menu">Home Slider</span>
+										</a>
+									</li>
 									<li class="sidebar-item">
 										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.category') }}"
 											aria-expanded="false">

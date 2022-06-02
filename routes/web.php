@@ -52,6 +52,11 @@ use App\Http\Livewire\admin\AdminUserRolesEditComponent;
 
 use App\Http\Livewire\admin\AdminAboutComponent;
 
+use App\Http\Livewire\admin\AdminHomeSliderComponent;
+use App\Http\Livewire\admin\AdminHomeSliderAddComponent;
+use App\Http\Livewire\admin\AdminHomeSliderEditComponent;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -135,5 +140,9 @@ Route::middleware(['auth:sanctum', 'verified', 'role_or_permission:super-admin|a
     Route::get('/admin/user-roles/edit/{user_id}', AdminUserRolesEditComponent::class)->name('admin.edituserrole');
 
     Route::get('/admin/about', AdminAboutComponent::class)->name('admin.about');
+
+    Route::get('/admin/homeslider', AdminHomeSliderComponent::class)->name('admin.homeslider');
+    Route::get('/admin/homeslider/add', AdminHomeSliderAddComponent::class)->name('admin.addhomeslider');
+    Route::get('/admin/homeslider/edit/{homeslider_id}', AdminHomeSliderEditComponent::class)->name('admin.edithomeslider');
 
 });
