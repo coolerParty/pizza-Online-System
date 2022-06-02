@@ -17,8 +17,9 @@ use App\Http\Livewire\ThankYouComponent;
 
 use App\Http\Livewire\user\UserOrderComponent;
 use App\Http\Livewire\user\UserOrderDetailsComponent;
+use App\Http\Livewire\user\UserPasswordComponent;
 
-use App\Http\Livewire\user\UserChangePasswordComponent;
+use App\Http\Livewire\admin\UserChangePasswordComponent;
 
 use App\Http\Livewire\admin\AdminDashboardComponent;
 
@@ -92,13 +93,15 @@ Route::get('/wishlist', WishlistComponent::class)->name('wishlist.index');
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     // Route::get('/user/dashboard', UserDashboardComponent::class)->name('user.dashboard');
+
+    Route::get('/user/change-password', UserPasswordComponent::class)->name('user.changepassword');
+
+
     Route::get('/checkout', CheckoutComponent::class)->name('checkout.index');
     Route::get('/thank-you', ThankYouComponent::class)->name('thankyou');
 
     Route::get('/user/order', UserOrderComponent::class)->name('user.order');
     Route::get('/user/order/{order_id}', UserOrderDetailsComponent::class)->name('user.orderdetail');
-
-    Route::get('/user/change-password', UserChangePasswordComponent::class)->name('user.changepassword');
 
     Route::get('/user/review/{order_item_id}', UserReviewComponent::class)->name('user.review');
     Route::get('/user/review/edit/{order_item_id}', UserReviewEditComponent::class)->name('user.reviewedit');
@@ -113,6 +116,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::middleware(['auth:sanctum', 'verified', 'role_or_permission:super-admin|admin-access'])->group(function () {
 
     Route::get('/admin/dashboard', AdminDashboardComponent::class)->name('admin.dashboard');
+
+    Route::get('/admin/change-password', UserChangePasswordComponent::class)->name('admin.changepassword');
 
     Route::get('/admin/category', AdminCategoryComponent::class)->name('admin.category');
     Route::get('/admin/category/add', AdminCategoryAddComponent::class)->name('admin.addcategory');

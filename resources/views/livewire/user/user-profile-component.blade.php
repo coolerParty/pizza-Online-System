@@ -27,13 +27,13 @@
         <h1 class="heading"> {{ $user->lastname }}, {{ $user->name }} </h1>
         <form>
             <div class="billing-address">
+                <div class="p-10">
 
-                <div class="flex-center p-10">
                     @if($userProfile->image)
-                    <img class="rounded-full"
+                    <img class="rounded-full  max-w-md mx-auto"
                                 src="{{ asset('assets/images/profile/cover') }}/{{ $userProfile->image }}" width="50%" alt="">
                     @else
-                    <img class="rounded-full"
+                    <img class="rounded-full max-w-md mx-auto"
                                 src="{{ asset('assets/images/profile/cover') }}/pic-1.png" width="50%" alt="">
                     @endif
                 </div>
@@ -101,8 +101,10 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-end mt-10">
-                <a class="btn btn-checkout" href="{{ route('user.profileedit') }}">Edit</a>
+
+            <div class="mt-10 mb-28">
+                <a class="btn btn-checkout float-left" href="{{ route('user.changepassword') }}">Change Password</a>
+                <a class="btn btn-checkout float-right" href="{{ route('user.profileedit') }}">Edit Info</a>
             </div>
         </form>
 

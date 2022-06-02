@@ -47,10 +47,7 @@
                         @if (Auth::user()->utype === 'ADM')
 						<div class="col"><a href="{{ route('admin.dashboard') }}" class="btn btn-primary float-end"><i
 									class="fas fa-list mr-2"></i> Back to Dashboard</a> </div>
-                                    @elseif (Auth::user()->utype === 'USR')
-                                    <div class="col"><a href="{{ route('user.dashboard') }}" class="btn btn-primary float-end"><i
-                                        class="fas fa-list mr-2"></i> Back to Dashboard</a> </div>
-                                    @endif
+                        @endif
 					</div>
 					<!-- form start -->
 					<form wire:submit.prevent="changePassword" class="form-horzontal form-material">

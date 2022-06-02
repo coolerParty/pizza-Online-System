@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-class UserChangePasswordComponent extends Component
+class UserPasswordComponent extends Component
 {
     public $current_password;
     public $password;
@@ -43,6 +43,6 @@ class UserChangePasswordComponent extends Component
 
     public function render()
     {
-        return view('livewire.user.user-change-password-component')->layout('layouts.dashboard');
+        return view('livewire.user.user-password-component')->layout('layouts.base');
     }
 }

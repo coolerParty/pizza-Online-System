@@ -1066,6 +1066,9 @@ select {
 .mb-1 {
   margin-bottom: 0.25rem;
 }
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
 .mt-0 {
   margin-top: 0px;
 }
@@ -1083,6 +1086,12 @@ select {
 }
 .mb-20 {
   margin-bottom: 5rem;
+}
+.mt-20 {
+  margin-top: 5rem;
+}
+.mb-28 {
+  margin-bottom: 7rem;
 }
 .block {
   display: block;
@@ -1203,6 +1212,9 @@ select {
 }
 .max-w-screen-md {
   max-width: 768px;
+}
+.max-w-md {
+  max-width: 28rem;
 }
 .flex-1 {
   flex: 1 1 0%;
