@@ -56,6 +56,9 @@ use App\Http\Livewire\admin\AdminHomeSliderComponent;
 use App\Http\Livewire\admin\AdminHomeSliderAddComponent;
 use App\Http\Livewire\admin\AdminHomeSliderEditComponent;
 
+use App\Http\Livewire\admin\AdminFooterInformationComponent;
+use App\Http\Livewire\admin\AdminFooterInformationAddComponent;
+use App\Http\Livewire\admin\AdminFooterInformationEditComponent;
 
 
 /*
@@ -144,5 +147,10 @@ Route::middleware(['auth:sanctum', 'verified', 'role_or_permission:super-admin|a
     Route::get('/admin/homeslider', AdminHomeSliderComponent::class)->name('admin.homeslider');
     Route::get('/admin/homeslider/add', AdminHomeSliderAddComponent::class)->name('admin.addhomeslider');
     Route::get('/admin/homeslider/edit/{homeslider_id}', AdminHomeSliderEditComponent::class)->name('admin.edithomeslider');
+
+    Route::get('/admin/info', AdminFooterInformationComponent::class)->name('admin.info');
+    Route::get('/admin/info/add', AdminFooterInformationAddComponent::class)->name('admin.addinfo');
+    Route::get('/admin/info/edit/{info_id}', AdminFooterInformationEditComponent::class)->name('admin.editinfo');
+
 
 });
