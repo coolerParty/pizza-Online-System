@@ -152,7 +152,7 @@
                                     <li class="sidebar-item">
 										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.homeslider') }}"
 											aria-expanded="false">
-											<i class="fas fa-dot-circle" aria-hidden="true"></i>
+											<i class="fas fa-file-image" aria-hidden="true"></i>
 											<span class="hide-menu">Home Slider</span>
 										</a>
 									</li>
@@ -196,7 +196,7 @@
                                     <li class="sidebar-item">
 										<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('admin.about') }}"
 											aria-expanded="false">
-											<i class="fas fa-id-card" aria-hidden="true"></i>
+											<i class="far fa-list-alt" aria-hidden="true"></i>
 											<span class="hide-menu">About</span>
 										</a>
 									</li>
@@ -223,13 +223,6 @@
 									</li>
 								<!-- Admin Menu End -->
 								@endif
-
-								<li class="sidebar-item">
-									<a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
-										<i class="far fa-list-alt" aria-hidden="true"></i>
-										<span class="hide-menu">Profile</span>
-									</a>
-								</li>
 
 								<li class="sidebar-item">
 									<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('user.changepassword') }}" aria-expanded="false">
