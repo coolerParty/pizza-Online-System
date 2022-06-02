@@ -242,7 +242,7 @@
         <div class="swiper-container review-slider" wire:ignore>
 
             <div class="swiper-wrapper">
-                @foreach($orderItems as $orderItem)
+                @forelse($orderItems as $orderItem)
                 <div class="swiper-slide slide">
                     <i class="fas fa-quote-right"></i>
                     <div class="user">
@@ -274,7 +274,32 @@
                     <h3 class="text-2xl font-bold">{{ $orderItem->review->title }}</h3>
                     <p>{{ $orderItem->review->comment }}</p>
                 </div>
-                @endforeach
+                @empty
+                <div class="swiper-slide slide">
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="{{ asset('images/pic-1.png') }}" alt="">
+                        <div class="user-info">
+                            <h3></h3>
+                            <div class="stars" style="font-size: 1.6rem!important;">
+                                <style>
+                                    .color-gray{
+                                        color:rgb(173, 173, 173)!important;
+                                    }
+
+                                </style>
+                                <i class="fas fa-star color-gray"></i>
+                                <i class="fas fa-star color-gray"></i>
+                                <i class="fas fa-star color-gray"></i>
+                                <i class="fas fa-star color-gray"></i>
+                                <i class="fas fa-star color-gray"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold">No Review!</h3>
+                    <p>There is no customer review at the moment.</p>
+                </div>
+                @endforelse
 
             </div>
 
