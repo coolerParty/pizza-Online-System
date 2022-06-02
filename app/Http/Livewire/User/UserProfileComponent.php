@@ -16,10 +16,9 @@ class UserProfileComponent extends Component
                 ->where('user_id', Auth::user()->id)->first();
         if(!$userProfile)
         {
-            $profile = new Profile();
-            $profile->user_id = Auth::user()->id;
-            $profile->save();
-            return redirect()->to(route('user.profile'));
+            $userProfile = new Profile();
+            $userProfile->user_id = Auth::user()->id;
+            $userProfile->save();
         }
         $user = User::select('name','lastname','email')->find(Auth::user()->id);
 

@@ -37,9 +37,8 @@
 			@auth
 				@can ('admin-access')
 					<a href="{{ route('admin.dashboard') }}">dashboard</a>
-                @else
-                    <a href="#">Profile</a>
 				@endcan
+                <a class="@if(url()->current() == route('user.profile')) active @endif"  href="{{ route('user.profile') }}">Profile</a>
 				<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
 					aria-expanded="false">
 					<i class="fas fa-sign-out-alt" aria-hidden="true"></i>
