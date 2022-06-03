@@ -8,10 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class AdminOrderComponent extends Component
 {
-    // comment here sample 
-    
+    // comment here sample
+
     public function updateOrderStatus($order_id, $status)
     {
+        if (!auth()->user()->can('order-show', 'order-edit','admin-access')) {
+            abort(404);
+        }
+
         $order = Order::find($order_id);
         $order->status = $status;
         if($status == "delivered")
@@ -29,6 +33,10 @@ class AdminOrderComponent extends Component
 
     public function render()
     {
+        if (!auth()->user()->can('order-show', 'admin-access')) {
+            abort(404);
+        }
+
         $orders = Order::orderBy('created_at','DESC')->get();
         return view('livewire.admin.admin-order-component',['orders'=>$orders])->layout('layouts.dashboard');
     }

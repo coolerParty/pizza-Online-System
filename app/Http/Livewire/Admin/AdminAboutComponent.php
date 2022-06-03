@@ -40,6 +40,10 @@ class AdminAboutComponent extends Component
 
     public function update()
     {
+        if (!auth()->user()->can('about-show', 'about-edit', 'admin-access')) {
+            abort(404);
+        }
+
         $this->validate([
             'title' => ['required','max:150', Rule::unique('abouts')->ignore($this->about_id)],
             'body'  => ['required'],
@@ -54,6 +58,10 @@ class AdminAboutComponent extends Component
 
     public function render()
     {
+        if (!auth()->user()->can('about-show', 'about-edit', 'admin-access')) {
+            abort(404);
+        }
+
         return view('livewire.admin.admin-about-component')->layout('layouts.dashboard');
     }
 }

@@ -33,6 +33,10 @@ class AdminFooterInformationEditComponent extends Component
 
     public function updateInfo()
     {
+        if (!auth()->user()->can('footerinfo-edit', 'admin-access')) {
+            abort(404);
+        }
+
         $this->validate([
             'name' => ['required','max:120', Rule::unique('footer_information')->ignore($this->info_id)],
             'link' => ['nullable'],
@@ -49,6 +53,9 @@ class AdminFooterInformationEditComponent extends Component
 
     public function render()
     {
+        if (!auth()->user()->can('footerinfo-edit', 'admin-access')) {
+            abort(404);
+        }
         return view('livewire.admin.admin-footer-information-edit-component')->layout('layouts.dashboard');
     }
 }

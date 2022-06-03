@@ -38,6 +38,10 @@ class AdminHomeSliderAddComponent extends Component
 
     public function addSlider()
     {
+        if (!auth()->user()->can('homeslider-create', 'admin-access')) {
+            abort(404);
+        }
+
         $this->validate([
             'title'             => ['required', 'max:120', 'unique:home_sliders'],
             'subtitle'          => ['required', 'max:120'],
@@ -70,6 +74,9 @@ class AdminHomeSliderAddComponent extends Component
 
     public function render()
     {
+        if (!auth()->user()->can('homeslider-create', 'admin-access')) {
+            abort(404);
+        }
         $products = Product::select('id','name')->orderBy('name','asc')->get();
         return view('livewire.admin.admin-home-slider-add-component',['products'=>$products])->layout('layouts.dashboard');
     }

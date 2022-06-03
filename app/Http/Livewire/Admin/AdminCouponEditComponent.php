@@ -32,7 +32,7 @@ class AdminCouponEditComponent extends Component
             session()->flash('message','No coupon has been found!');
             return redirect()->to(route('admin.coupon'));
         }
-        
+
     }
 
     public function updated($fields)
@@ -50,6 +50,9 @@ class AdminCouponEditComponent extends Component
 
     public function updateCoupon()
     {
+        if (!auth()->user()->can('coupon-edit', 'admin-access')) {
+            abort(404);
+        }
 
         $this->validate([
             'code'        => ['required', Rule::unique('coupons')->ignore($this->coupon_id)],
@@ -72,6 +75,9 @@ class AdminCouponEditComponent extends Component
 
     public function render()
     {
+        if (!auth()->user()->can('coupon-edit', 'admin-access')) {
+            abort(404);
+        }
         return view('livewire.admin.admin-coupon-edit-component')->layout('layouts.dashboard');
     }
 }

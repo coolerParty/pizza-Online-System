@@ -26,7 +26,7 @@ class AdminCategoryEditComponent extends Component
             session()->flash('message','No Category has been found!');
             return redirect()->to(route('admin.category'));
         }
-        
+
     }
 
     public function updated($fields)
@@ -40,6 +40,9 @@ class AdminCategoryEditComponent extends Component
 
     public function updateCategory()
     {
+        if (!auth()->user()->can('category-edit', 'admin-access')) {
+            abort(404);
+        }
 
         $this->validate([
             'name' => ['required', Rule::unique('categories')->ignore($this->category_id)],
@@ -55,6 +58,10 @@ class AdminCategoryEditComponent extends Component
 
     public function render()
     {
+        if (!auth()->user()->can('category-edit', 'admin-access')) {
+            abort(404);
+        }
+
         return view('livewire.admin.admin-category-edit-component')->layout('layouts.dashboard');
     }
 }

@@ -19,6 +19,10 @@ class AdminCategoryAddComponent extends Component
 
     public function addCategory()
     {
+        if (!auth()->user()->can('category-create', 'admin-access')) {
+            abort(404);
+        }
+
         $this->validate([
             'name' => 'required|unique:categories',
        ]);
@@ -32,6 +36,9 @@ class AdminCategoryAddComponent extends Component
 
     public function render()
     {
+        if (!auth()->user()->can('category-create', 'admin-access')) {
+            abort(404);
+        }
         return view('livewire.admin.admin-category-add-component')->layout('layouts.dashboard');
     }
 }

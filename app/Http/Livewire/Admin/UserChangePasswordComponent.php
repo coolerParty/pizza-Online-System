@@ -43,6 +43,9 @@ class UserChangePasswordComponent extends Component
 
     public function render()
     {
+        if (!auth()->user()->can('admin-access')) {
+            abort(404);
+        }
         return view('livewire.admin.user-change-password-component')->layout('layouts.dashboard');
     }
 }

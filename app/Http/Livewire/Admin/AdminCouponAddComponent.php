@@ -26,6 +26,10 @@ class AdminCouponAddComponent extends Component
 
     public function addCoupon()
     {
+        if (!auth()->user()->can('coupon-create', 'admin-access')) {
+            abort(404);
+        }
+
         $this->validate([
             'code'       => 'required|unique:coupons',
             'type'       => 'required',
@@ -43,9 +47,13 @@ class AdminCouponAddComponent extends Component
         $coupon->save();
         session()->flash('message',$this->code . ' coupon has been added successfully!');
     }
-    
+
     public function render()
     {
+        if (!auth()->user()->can('coupon-create', 'admin-access')) {
+            abort(404);
+        }
+
         return view('livewire.admin.admin-coupon-add-component')->layout('layouts.dashboard');
     }
 }

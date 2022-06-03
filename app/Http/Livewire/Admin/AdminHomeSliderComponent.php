@@ -9,6 +9,10 @@ class AdminHomeSliderComponent extends Component
 {
     public function deleteSlider($id)
     {
+        if (!auth()->user()->can('homeslider-show','homeslider-delete', 'admin-access')) {
+            abort(404);
+        }
+
         $slider = HomeSlider::findorfail($id);
         if($slider)
         {
@@ -30,6 +34,10 @@ class AdminHomeSliderComponent extends Component
 
     public function updateStatus($homeslider_id, $status)
     {
+        if (!auth()->user()->can('homeslider-show','homeslider-edit', 'admin-access')) {
+            abort(404);
+        }
+
         $Slider = HomeSlider::find($homeslider_id);
         $Slider->status = $status;
         $Slider->save();
@@ -39,6 +47,10 @@ class AdminHomeSliderComponent extends Component
 
     public function render()
     {
+        if (!auth()->user()->can('homeslider-show', 'admin-access')) {
+            abort(404);
+        }
+
         $sliders = HomeSlider::select('id','title','subtitle','short_description','status','image','product_id','created_at')->get();
         return view('livewire.admin.admin-home-slider-component',['sliders'=>$sliders])->layout('layouts.dashboard');
     }

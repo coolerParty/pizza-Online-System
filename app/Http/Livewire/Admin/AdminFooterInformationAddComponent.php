@@ -28,6 +28,10 @@ class AdminFooterInformationAddComponent extends Component
 
     public function addInfo()
     {
+        if (!auth()->user()->can('footerinfo-create', 'admin-access')) {
+            abort(404);
+        }
+
         $this->validate([
             'name' => ['required','max:120','unique:footer_information'],
             'link' => ['nullable'],
@@ -45,6 +49,10 @@ class AdminFooterInformationAddComponent extends Component
 
     public function render()
     {
+        if (!auth()->user()->can('footerinfo-create', 'admin-access')) {
+            abort(404);
+        }
+
         return view('livewire.admin.admin-footer-information-add-component')->layout('layouts.dashboard');
     }
 }

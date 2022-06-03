@@ -68,6 +68,10 @@ class AdminProductEditComponent extends Component
     public function updateProduct()
     {
 
+        if (!auth()->user()->can('product-edit', 'admin-access')) {
+            abort(404);
+        }
+
         $this->validate([
             'name'              => ['required','max:150', Rule::unique('products')->ignore($this->product_id)],
             'short_description' => ['required','max:200'],
@@ -117,6 +121,10 @@ class AdminProductEditComponent extends Component
 
     public function render()
     {
+        if (!auth()->user()->can('product-edit', 'admin-access')) {
+            abort(404);
+        }
+
         $categories = Category::select('id','name')->orderby('name','ASC')->get();
         return view('livewire.admin.admin-product-edit-component',['categories'=>$categories])->layout('layouts.dashboard');
     }

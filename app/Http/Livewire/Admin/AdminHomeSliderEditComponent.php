@@ -54,6 +54,10 @@ class AdminHomeSliderEditComponent extends Component
     public function updateSlider()
     {
 
+        if (!auth()->user()->can('homeslider-edit', 'admin-access')) {
+            abort(404);
+        }
+
         $this->validate([
             'title'             => ['required', 'max:150', Rule::unique('home_sliders')->ignore($this->homeslider_id)],
             'subtitle'          => ['required', 'max:120'],
@@ -91,6 +95,10 @@ class AdminHomeSliderEditComponent extends Component
 
     public function render()
     {
+        if (!auth()->user()->can('homeslider-edit', 'admin-access')) {
+            abort(404);
+        }
+
         $products = Product::select('id','name')->orderBy('name','asc')->get();
         return view('livewire.admin.admin-home-slider-edit-component',['products'=>$products])->layout('layouts.dashboard');
     }
