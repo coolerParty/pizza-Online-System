@@ -192,7 +192,11 @@ class CheckoutComponent extends Component
                     $orderItem->save();
 
                     $p_qty_decrement = Product::find($item->id);
-                    $p_qty_decrement->quantity = $p_qty_decrement->quantity - $item->qty;
+                    if (($p_qty_decrement->quantity - $item->qty) <= 0) {
+                        $p_qty_decrement->quantity = 0;
+                    } else {
+                        $p_qty_decrement->quantity = $p_qty_decrement->quantity - $item->qty;
+                    }
                     $p_qty_decrement->save();
                 }
 
