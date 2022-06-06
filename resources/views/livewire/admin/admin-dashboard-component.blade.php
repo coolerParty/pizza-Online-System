@@ -106,7 +106,7 @@
             </div>
         </div> -->
         <!-- ============================================================== -->
-        <!-- RECENT SALES -->
+        <!-- RECENT Orders -->
         <!-- ============================================================== -->
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12">
@@ -158,6 +158,67 @@
                                 <tr>
                                     <td></td>
                                     <td class="txt-oflo">No Recent Orders</td>
+                                    <td></td>
+                                    <td class="txt-oflo"></td>
+                                    <td><span class="text-info"></span></td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Product STocks -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="white-box">
+                    <div class="d-md-flex mb-3">
+                        <h3 class="box-title mb-0">Product Stocks</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table no-wrap">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0">Id</th>
+                                    <th class="border-top-0">Name</th>
+                                    <th class="border-top-0">Price</th>
+                                    <th class="border-top-0">Quantity</th>
+                                    <th class="border-top-0">Status</th>
+                                    <th class="border-top-0">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($productStocks as $productStock)
+                                <tr>
+                                    <td>{{ $productStock->id }}</td>
+                                    <td class="txt-oflo">{{ $productStock->name }}</td>
+                                    <td><span>${{ $productStock->regulary_price }}</span></td>
+                                    <td class="txt-oflo font-bold text-white">
+                                        @if($productStock->quantity == 0)
+                                            <span class="bg-red-500 py-2 px-3">{{ $productStock->quantity }}</span>
+                                        @elseif($productStock->quantity <= 10)
+                                            <span  class="bg-orange-500  py-2 px-3">{{ $productStock->quantity }}</span>
+                                        @else
+                                            <span class="bg-lime-500  py-2 px-3">{{ $productStock->quantity }}</span>
+                                        @endif
+                                    </td>
+                                    <td class="text-gray-200">
+                                        @if( $productStock->stock_status == 'instock')
+                                            <span class="btn btn-success btn-sm">instock</span>
+                                        @else
+                                            <span class="btn btn-secondary btn-sm">out of stock</span>
+                                        @endif
+                                    </td>
+                                    <td><a href="{{ route('admin.orderdetail', ['order_id' => $productStock->id]) }}"
+                                        class="btn btn-info btn-sm">Details</a></td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td></td>
+                                    <td class="txt-oflo">No products out of stock</td>
                                     <td></td>
                                     <td class="txt-oflo"></td>
                                     <td><span class="text-info"></span></td>
