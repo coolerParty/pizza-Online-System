@@ -75,7 +75,7 @@
 									<th class="border-top-0">Name</th>
 									<th class="border-top-0">Stock</th>
 									<th class="border-top-0">Category</th>
-									<th class="border-top-0">Quatity</th>
+									<th class="border-top-0">Quantity</th>
 									<th class="border-top-0">featured</th>
 									<th class="border-top-0">Date</th>
 									<th class="border-top-0">Action</th>
@@ -87,7 +87,28 @@
 										<td>{{ $loop->iteration }}</td>
 										<td><img class="round" src="{{ asset('assets/images/product') }}/{{ $product->image }}" width="120" alt=""></td>
 										<td>{{ $product->name }}</td>
-                                        <td>{{ $product->stock_status }}</td>
+                                        <td>
+                                            <div class="dropdown">
+												<button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
+													data-bs-toggle="dropdown" aria-expanded="false">
+                                                    @if($product->stock_status == 'outofstock')
+                                                        Out of Stock
+                                                    @else
+                                                        Instock
+                                                    @endif
+                                                    <span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    @if($product->stock_status == 'outofstock')
+                                                    <li><a class="dropdown-item" href="#"
+                                                        wire:click.prevent="updateStock({{ $product->id }},'instock')">Instock</a></li>
+                                                    @else
+                                                        <li><a class="dropdown-item" href="#"
+                                                        wire:click.prevent="updateStock({{ $product->id }},'outofstock')">Out of stock</a></li>
+                                                    @endif
+												</ul>
+											</div>
+                                        </td>
                                         <td>{{ $product->category->name }}</td>
                                         <td class="font-bold text-white">
                                             @if($product->quantity == 0)
@@ -118,7 +139,6 @@
                                                         wire:click.prevent="updateFeature({{ $product->id }},'0')">No</a></li>
                                                     @endif
 												</ul>
-
 											</div>
                                         </td>
 										<td>{{ Carbon\Carbon::parse($product->created_at)->format('m/d/Y') }}</td>

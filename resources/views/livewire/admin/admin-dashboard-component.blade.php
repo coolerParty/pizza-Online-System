@@ -212,8 +212,10 @@
                                             <span class="btn btn-secondary btn-sm">out of stock</span>
                                         @endif
                                     </td>
-                                    <td><a href="{{ route('admin.orderdetail', ['order_id' => $productStock->id]) }}"
-                                        class="btn btn-info btn-sm">Details</a></td>
+                                    <td>
+                                        <a href="{{ route('admin.editproduct', ['product_id' => $productStock->id]) }}"
+                                            class="btn btn-primary btn-sm text-light"><i class="fas fa-edit mr-2"></i> Edit</a>
+                                    </td>
                                 </tr>
                                 @empty
                                 <tr>

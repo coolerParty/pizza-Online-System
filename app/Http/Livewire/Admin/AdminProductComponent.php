@@ -41,6 +41,19 @@ class AdminProductComponent extends Component
         return redirect()->to(route('admin.product'));
     }
 
+    public function updateStock($product_id, $stock_status)
+    {
+        if (!auth()->user()->can('product-show', 'product-edit','admin-access')) {
+            abort(404);
+        }
+
+        $product = Product::find($product_id);
+        $product->stock_status = $stock_status;
+        $product->save();
+        session()->flash('order_message','Product stock has been updated successfully to '. $stock_status . '!');
+        return redirect()->to(route('admin.product'));
+    }
+
     public function render()
     {
         if (!auth()->user()->can('product-show', 'admin-access')) {
