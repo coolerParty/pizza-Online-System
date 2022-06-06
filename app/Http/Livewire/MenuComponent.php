@@ -39,7 +39,7 @@ class MenuComponent extends Component
 
     public function render()
     {
-        $products = Product::select('id','name','regulary_price','image','slug','category_id')->orderby('created_at','ASC')->get();
+        $products = Product::select('id','name','regulary_price','image','slug','category_id')->where('stock_status','instock')->orderby('created_at','ASC')->get();
         $categories = Category::select('id','name')->get();
         $witems = Cart::instance('wishlist')->content()->pluck('id');
 

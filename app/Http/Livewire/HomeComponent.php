@@ -38,8 +38,8 @@ class HomeComponent extends Component
 
     public function render()
     {
-        $products = Product::select('id','name','regulary_price','short_description','image','slug')->orderby('created_at','ASC')->limit(8)->get();
-        $featuredProducts = Product::select('id','name','regulary_price','short_description','image','slug')->where('featured', true)->orderby('created_at','ASC')->limit(8)->get();
+        $products = Product::select('id','name','regulary_price','short_description','image','slug')->where('stock_status','instock')->orderby('created_at','ASC')->limit(8)->get();
+        $featuredProducts = Product::select('id','name','regulary_price','short_description','image','slug')->where('stock_status','instock')->where('featured', true)->orderby('created_at','ASC')->limit(8)->get();
         $witems = Cart::instance('wishlist')->content()->pluck('id');
 
         if(Auth::check())
