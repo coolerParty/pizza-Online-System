@@ -190,6 +190,10 @@ class CheckoutComponent extends Component
                     $orderItem->price      = $item->price;
                     $orderItem->quantity   = $item->qty;
                     $orderItem->save();
+
+                    $p_qty_decrement = Product::find($item->id);
+                    $p_qty_decrement->quantity = $p_qty_decrement->quantity - $item->qty;
+                    $p_qty_decrement->save();
                 }
 
                 if ($this->ship_to_different) {
