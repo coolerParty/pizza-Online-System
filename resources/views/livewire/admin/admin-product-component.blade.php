@@ -89,7 +89,15 @@
 										<td>{{ $product->name }}</td>
                                         <td>{{ $product->stock_status }}</td>
                                         <td>{{ $product->category->name }}</td>
-                                        <td>{{ $product->quantity }}</td>
+                                        <td class="font-bold text-white">
+                                            @if($product->quantity == 0)
+                                                <span class="bg-red-500 py-2 px-3">{{ $product->quantity }}</span>
+                                            @elseif($product->quantity <= 10)
+                                                <span  class="bg-orange-500  py-2 px-3">{{ $product->quantity }}</span>
+                                            @else
+                                                <span class="bg-lime-500  py-2 px-3">{{ $product->quantity }}</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="dropdown">
 												<button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1"
