@@ -32,8 +32,8 @@ class FooterInformationSeeder extends Seeder
 
             // type = 3 Social Media
             ['name' => 'Facebook',  'link' => 'https://facebook.com/',  'type' => 3,  'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Twitter',   'link' => 'https://twitter.com/',  'type' => 3,  'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'Instagram', 'link' => 'https://instagram.com/',  'type' => 3,  'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Twitter',   'link' => 'https://twitter.com/',   'type' => 3,  'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Instagram', 'link' => 'https://instagram.com/', 'type' => 3,  'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Linkedin',  'link' => 'https://linkedin.com/',  'type' => 3,  'created_at' => now(), 'updated_at' => now()],
 
 

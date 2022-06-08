@@ -25,7 +25,7 @@ class AdminDashboardComponent extends Component
 
         $recentReviews = Review::select('id', 'comment', 'created_at', 'order_item_id', 'rating')->whereMonth('created_at', '=', $date->month)->whereYear('created_at', '=', $date->year)->orderBy('created_at', 'DESC')->take(10)->get();
 
-        $productStocks = Product::select('id', 'name', 'quantity', 'regulary_price', 'image', 'stock_status')->where('quantity', '<=', 10)->orderBy('quantity','ASC')->get();
+        $productStocks = Product::select('id', 'name', 'quantity', 'regulary_price', 'image', 'stock_status')->where('quantity', '<=', 15)->orderBy('quantity','ASC')->get();
 
         return view(
             'livewire.admin.admin-dashboard-component',

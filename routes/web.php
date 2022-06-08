@@ -7,6 +7,7 @@ use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\WishlistComponent;
 use App\Http\Livewire\ProductDetailsComponent;
+use App\Http\Livewire\SearchComponent;
 
 // use App\Http\Livewire\user\UserDashboardComponent;
 use App\Http\Livewire\user\UserReviewComponent;
@@ -87,6 +88,7 @@ Route::get('/menu', MenuComponent::class)->name('menu.index');
 Route::get('/menu/{product_id}/{slug}', ProductDetailsComponent::class)->name('menu.details');
 Route::get('/cart', CartComponent::class)->name('cart.index');
 Route::get('/wishlist', WishlistComponent::class)->name('wishlist.index');
+Route::get('/search', SearchComponent::class)->name('search.index');
 
 
 // For User or Customer
