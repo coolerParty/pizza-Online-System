@@ -58,7 +58,7 @@ class CheckoutComponent extends Component
             $profile = new Profile();
             $profile->user_id = Auth::user()->id;
             $profile->save();
-            return redirect()->to(route('user.profileedit'));
+            return redirect()->to(route('checkout.index'));
         }
 
         $this->image    = $userProfile->image;
