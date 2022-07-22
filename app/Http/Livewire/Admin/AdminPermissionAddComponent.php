@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Spatie\Permission\Models\Permission;
 
 class AdminPermissionAddComponent extends Component
 {
+    use AuthorizesRequests;
     public $name;
 
     public function updated($fields)
@@ -18,9 +20,7 @@ class AdminPermissionAddComponent extends Component
 
     public function addPermission()
     {
-        if (!auth()->user()->can('permission-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('permission-create', 'admin-access');
 
         $this->validate([
             'name' => 'required|unique:permissions,name',
@@ -33,10 +33,7 @@ class AdminPermissionAddComponent extends Component
 
     public function render()
     {
-
-        if (!auth()->user()->can('permission-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('permission-create', 'admin-access');
 
         return view('livewire.admin.admin-permission-add-component')->layout('layouts.dashboard');
     }

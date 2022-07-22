@@ -7,11 +7,13 @@ use App\Models\Product;
 use Intervention\Image\Facades\Image;
 use Livewire\WithFileUploads;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class AdminHomeSliderEditComponent extends Component
 {
+    use AuthorizesRequests;
     use WithFileUploads;
     public $homeslider_id;
     public $title;
@@ -53,10 +55,7 @@ class AdminHomeSliderEditComponent extends Component
 
     public function updateSlider()
     {
-
-        if (!auth()->user()->can('homeslider-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('homeslider-edit', 'admin-access');
 
         $this->validate([
             'title'             => ['required', 'max:150', Rule::unique('home_sliders')->ignore($this->homeslider_id)],
@@ -95,9 +94,7 @@ class AdminHomeSliderEditComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('homeslider-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('homeslider-edit', 'admin-access');
 
         $products = Product::select('id','name')->orderBy('name','asc')->get();
         return view('livewire.admin.admin-home-slider-edit-component',['products'=>$products])->layout('layouts.dashboard');

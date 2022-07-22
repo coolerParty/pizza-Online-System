@@ -4,10 +4,13 @@ namespace App\Http\Livewire\Admin;
 
 use Illuminate\Validation\Rule;
 use App\Models\FooterInformation;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class AdminFooterInformationEditComponent extends Component
 {
+    use AuthorizesRequests;
+
     public $info_id;
     public $name;
     public $link;
@@ -33,9 +36,7 @@ class AdminFooterInformationEditComponent extends Component
 
     public function updateInfo()
     {
-        if (!auth()->user()->can('footerinfo-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('footerinfo-edit', 'admin-access');
 
         $this->validate([
             'name' => ['required','max:120', Rule::unique('footer_information')->ignore($this->info_id)],
@@ -53,9 +54,8 @@ class AdminFooterInformationEditComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('footerinfo-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('footerinfo-edit', 'admin-access');
+
         return view('livewire.admin.admin-footer-information-edit-component')->layout('layouts.dashboard');
     }
 }

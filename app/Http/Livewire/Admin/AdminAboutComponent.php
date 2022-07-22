@@ -3,11 +3,14 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\About;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class AdminAboutComponent extends Component
 {
+    use AuthorizesRequests;
+
     public $title;
     public $body;
     public $about_id;
@@ -40,9 +43,7 @@ class AdminAboutComponent extends Component
 
     public function update()
     {
-        if (!auth()->user()->can('about-show', 'about-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('about-show', 'about-edit',  'admin-access');
 
         $this->validate([
             'title' => ['required','max:150', Rule::unique('abouts')->ignore($this->about_id)],
@@ -58,9 +59,7 @@ class AdminAboutComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('about-show', 'about-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('about-show', 'about-edit',  'admin-access');
 
         return view('livewire.admin.admin-about-component')->layout('layouts.dashboard');
     }

@@ -7,10 +7,12 @@ use App\Models\Product;
 use Intervention\Image\Facades\Image;
 use Livewire\WithFileUploads;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class AdminHomeSliderAddComponent extends Component
 {
+    use AuthorizesRequests;
     use WithFileUploads;
     public $title;
     public $subtitle;
@@ -38,9 +40,7 @@ class AdminHomeSliderAddComponent extends Component
 
     public function addSlider()
     {
-        if (!auth()->user()->can('homeslider-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('homeslider-create', 'admin-access');
 
         $this->validate([
             'title'             => ['required', 'max:120', 'unique:home_sliders'],
@@ -74,9 +74,7 @@ class AdminHomeSliderAddComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('homeslider-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('homeslider-create', 'admin-access');
         $products = Product::select('id','name')->orderBy('name','asc')->get();
         return view('livewire.admin.admin-home-slider-add-component',['products'=>$products])->layout('layouts.dashboard');
     }

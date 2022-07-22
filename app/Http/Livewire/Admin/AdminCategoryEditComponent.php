@@ -6,10 +6,11 @@ use Livewire\Component;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminCategoryEditComponent extends Component
 {
-
+    use AuthorizesRequests;
     public $category_id;
     public $name;
 
@@ -40,9 +41,7 @@ class AdminCategoryEditComponent extends Component
 
     public function updateCategory()
     {
-        if (!auth()->user()->can('category-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('category-edit', 'admin-access');
 
         $this->validate([
             'name' => ['required', Rule::unique('categories')->ignore($this->category_id)],
@@ -58,10 +57,7 @@ class AdminCategoryEditComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('category-edit', 'admin-access')) {
-            abort(404);
-        }
-
+        $this->authorize('category-edit', 'admin-access');
         return view('livewire.admin.admin-category-edit-component')->layout('layouts.dashboard');
     }
 }

@@ -7,14 +7,16 @@ use App\Models\Product;
 use App\Models\Review;
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminDashboardComponent extends Component
 {
+    use AuthorizesRequests;
+
     public function render()
     {
-        if (!auth()->user()->can('admin-access')) {
-            abort(404);
-        }
+        $this->authorize('admin-access');
+
         $orders = Order::select('id', 'status')->where('status', '<>', 'canceled')->get();
         $orderTotal = $orders->count();
         $orderDelivered = $orders->where('status', 'delivered')->count();

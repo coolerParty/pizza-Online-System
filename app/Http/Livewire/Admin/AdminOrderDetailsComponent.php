@@ -5,9 +5,11 @@ namespace App\Http\Livewire\Admin;
 use Livewire\Component;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminOrderDetailsComponent extends Component
 {
+    use AuthorizesRequests;
     public $order_id;
 
     public function mount($order_id)
@@ -17,9 +19,7 @@ class AdminOrderDetailsComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('order-show', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('order-show', 'admin-access');
 
         $order      = Order::where('id', $this->order_id)->first();
         $orderItems = OrderItem::where('order_id',$order->id)->get();

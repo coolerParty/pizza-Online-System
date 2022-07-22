@@ -4,14 +4,15 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\Contact;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminContactComponent extends Component
 {
+    use AuthorizesRequests;
+
     public function render()
     {
-        if (!auth()->user()->can('contact-show', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('contact-show', 'admin-access');
 
         $contacts = Contact::orderBy('created_at','DESC')->get();
         return view('livewire.admin.admin-contact-component',['contacts'=>$contacts])->layout('layouts.dashboard');

@@ -4,10 +4,12 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\Coupon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
 
 class AdminCouponEditComponent extends Component
 {
+    use AuthorizesRequests;
     public $code;
     public $type;
     public $value;
@@ -50,9 +52,7 @@ class AdminCouponEditComponent extends Component
 
     public function updateCoupon()
     {
-        if (!auth()->user()->can('coupon-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('coupon-edit', 'admin-access');
 
         $this->validate([
             'code'        => ['required', Rule::unique('coupons')->ignore($this->coupon_id)],
@@ -75,9 +75,8 @@ class AdminCouponEditComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('coupon-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('coupon-edit', 'admin-access');
+
         return view('livewire.admin.admin-coupon-edit-component')->layout('layouts.dashboard');
     }
 }

@@ -2,18 +2,18 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class AdminRoleComponent extends Component
 {
+    use AuthorizesRequests;
+
     public function deleteRole($id)
     {
-
-        if (!auth()->user()->can('role-delete', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('role-delete', 'admin-access');
 
         $role = Role::findorfail($id);
         if ($role->name == 'super-admin' && !auth()->user()->can('super-admin')) {
@@ -26,9 +26,8 @@ class AdminRoleComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('role-show', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('role-show', 'admin-access');
+
         $roles = Role::orderBy('name', 'ASC')->get();
         $roleIds = $roles->pluck('id');
 

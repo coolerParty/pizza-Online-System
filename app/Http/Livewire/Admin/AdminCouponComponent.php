@@ -4,14 +4,15 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\Coupon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminCouponComponent extends Component
 {
+    use AuthorizesRequests;
+
     public function deleteCoupon($coupon_id)
     {
-        if (!auth()->user()->can('coupon-show','coupon-delete', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('coupon-show', 'coupon-delete', 'admin-access');
 
         $coupon = Coupon::find($coupon_id);
         $coupon->delete();
@@ -21,9 +22,7 @@ class AdminCouponComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('coupon-show', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('coupon-show', 'admin-access');
 
         $coupons = Coupon::all();
         return view('livewire.admin.admin-coupon-component',['coupons'=>$coupons])->layout('layouts.dashboard');

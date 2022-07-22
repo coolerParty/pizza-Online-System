@@ -4,17 +4,18 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\Order;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 
 class AdminOrderComponent extends Component
 {
+    use AuthorizesRequests;
+
     // comment here sample
 
     public function updateOrderStatus($order_id, $status)
     {
-        if (!auth()->user()->can('order-show', 'order-edit','admin-access')) {
-            abort(404);
-        }
+        $this->authorize('order-show', 'order-edit', 'admin-access');
 
         $order = Order::find($order_id);
         $order->status = $status;
@@ -33,9 +34,7 @@ class AdminOrderComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('order-show', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('order-show', 'admin-access');
 
         $orders = Order::orderBy('created_at','DESC')->get();
         return view('livewire.admin.admin-order-component',['orders'=>$orders])->layout('layouts.dashboard');

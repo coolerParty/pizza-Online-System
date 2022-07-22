@@ -9,9 +9,12 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Livewire\WithFileUploads;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminProductAddComponent extends Component
 {
+    use AuthorizesRequests;
+
     use WithFileUploads;
     public $name;
     public $short_description;
@@ -49,9 +52,7 @@ class AdminProductAddComponent extends Component
 
     public function addProduct()
     {
-        if (!auth()->user()->can('product-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('product-create', 'admin-access');
 
         $this->validate([
             'name'              => ['required','max:120','unique:products'],
@@ -94,9 +95,7 @@ class AdminProductAddComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('product-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('product-create', 'admin-access');
 
         $categories = Category::select('id','name')->orderby('name','ASC')->get();
         return view('livewire.admin.admin-product-add-component',['categories'=>$categories])->layout('layouts.dashboard');

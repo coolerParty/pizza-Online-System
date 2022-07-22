@@ -3,15 +3,17 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\FooterInformation;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class AdminFooterInformationComponent extends Component
 {
+    use AuthorizesRequests;
+
     public function deleteInfo($id)
     {
-        if (!auth()->user()->can('footerinfo-show', 'footerinfo-delete','admin-access')) {
-            abort(404);
-        }
+        $this->authorize('footerinfo-show', 'footerinfo-delete', 'admin-access');
+
         $info = FooterInformation::findorfail($id);
         if($info)
         {
@@ -29,9 +31,7 @@ class AdminFooterInformationComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('footerinfo-show', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('footerinfo-show', 'admin-access');
 
         $infos = FooterInformation::select('id','name','link','type')->get();
         return view('livewire.admin.admin-footer-information-component',['infos'=>$infos])->layout('layouts.dashboard');

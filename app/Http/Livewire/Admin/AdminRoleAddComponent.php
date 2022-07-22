@@ -2,12 +2,15 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 class AdminRoleAddComponent extends Component
 {
+    use AuthorizesRequests;
+
     public $name;
     public $permissionList;
     public $selected_permissions = [];
@@ -22,9 +25,7 @@ class AdminRoleAddComponent extends Component
 
     public function addRole()
     {
-        if (!auth()->user()->can('role-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('role-create', 'admin-access');
 
         $this->validate([
             'name' => 'required|unique:roles,name',
@@ -50,9 +51,8 @@ class AdminRoleAddComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('role-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('role-create', 'admin-access');
+
         if (auth()->user()->can('super-admin')) {
             $permission = Permission::all();
         } else {

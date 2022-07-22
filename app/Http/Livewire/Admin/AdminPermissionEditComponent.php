@@ -2,12 +2,15 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Validation\Rule;
 
 class AdminPermissionEditComponent extends Component
 {
+    use AuthorizesRequests;
+
     public $permission_id;
     public $name;
 
@@ -37,9 +40,7 @@ class AdminPermissionEditComponent extends Component
 
     public function updatePermission()
     {
-        if (!auth()->user()->can('permission-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('permission-edit', 'admin-access');
 
         $this->validate([
             'name' => ['required', Rule::unique('permissions')->ignore($this->permission_id)],
@@ -60,9 +61,7 @@ class AdminPermissionEditComponent extends Component
     }
     public function render()
     {
-        if (!auth()->user()->can('permission-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('permission-edit', 'admin-access');
         return view('livewire.admin.admin-permission-edit-component')->layout('layouts.dashboard');
     }
 }

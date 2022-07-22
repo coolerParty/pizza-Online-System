@@ -2,17 +2,17 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Spatie\Permission\Models\Permission;
 
 class AdminPermissionComponent extends Component
 {
+    use AuthorizesRequests;
+
     public function deletePermission($id)
     {
-
-        if (!auth()->user()->can('permission-delete', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('permission-show', 'permission-delete', 'admin-access');
 
         if (auth()->user()->can('super-admin')) {
             $permission = Permission::findorfail($id);
@@ -27,10 +27,7 @@ class AdminPermissionComponent extends Component
 
     public function render()
     {
-
-        if (!auth()->user()->can('permission-show', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('permission-show', 'admin-access');
 
         if (auth()->user()->can('super-admin')) {
             $permissions = Permission::orderBy('name', 'ASC')->get();

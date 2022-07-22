@@ -5,9 +5,12 @@ namespace App\Http\Livewire\Admin;
 use Livewire\Component;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminCategoryAddComponent extends Component
 {
+    use AuthorizesRequests;
+
     public $name;
 
     public function updated($fields)
@@ -19,9 +22,7 @@ class AdminCategoryAddComponent extends Component
 
     public function addCategory()
     {
-        if (!auth()->user()->can('category-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('category-create', 'admin-access');
 
         $this->validate([
             'name' => 'required|unique:categories',
@@ -36,9 +37,8 @@ class AdminCategoryAddComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('category-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('category-create', 'admin-access');
+
         return view('livewire.admin.admin-category-add-component')->layout('layouts.dashboard');
     }
 }

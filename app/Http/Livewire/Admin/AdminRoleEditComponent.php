@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
@@ -10,6 +11,8 @@ use Illuminate\Validation\Rule;
 
 class AdminRoleEditComponent extends Component
 {
+    use AuthorizesRequests;
+
     public $role_id;
     public $name;
     public $selected_permissions = [];
@@ -41,9 +44,7 @@ class AdminRoleEditComponent extends Component
 
     public function addRole()
     {
-        if (!auth()->user()->can('role-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('role-edit', 'admin-access');
 
         $this->validate([
             'name' => ['required', Rule::unique('roles')->ignore($this->role_id)],
@@ -70,21 +71,13 @@ class AdminRoleEditComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('role-edit', 'admin-access')) {
-            abort(404);
-        }
-
+        $this->authorize('role-edit', 'admin-access');
 
         if (auth()->user()->can('super-admin')) {
             $permissions = Permission::all();
         } else {
             $permissions = Permission::whereNotIn('name', ['permission-create', 'permission-delete', 'permission-edit'])->get();
         }
-
-        // $rolePermissions = DB::table('role_has_permissions')
-        // ->where('role_has_permissions.role_id', $this->role_id)
-        // ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
-        // ->all();
 
         return view('livewire.admin.admin-role-edit-component', ['permissions' => $permissions])->layout('layouts.dashboard');
     }

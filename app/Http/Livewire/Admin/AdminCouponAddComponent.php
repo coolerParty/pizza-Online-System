@@ -4,9 +4,11 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use App\Models\Coupon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AdminCouponAddComponent extends Component
 {
+    use AuthorizesRequests;
     public $code;
     public $type;
     public $value;
@@ -26,9 +28,7 @@ class AdminCouponAddComponent extends Component
 
     public function addCoupon()
     {
-        if (!auth()->user()->can('coupon-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('coupon-create', 'admin-access');
 
         $this->validate([
             'code'       => 'required|unique:coupons',
@@ -50,9 +50,7 @@ class AdminCouponAddComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('coupon-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('coupon-create', 'admin-access');
 
         return view('livewire.admin.admin-coupon-add-component')->layout('layouts.dashboard');
     }

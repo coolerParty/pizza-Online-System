@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\FooterInformation;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class AdminFooterInformationAddComponent extends Component
 {
+    use AuthorizesRequests;
+
     public $name;
     public $link;
     public $type;
@@ -28,9 +31,7 @@ class AdminFooterInformationAddComponent extends Component
 
     public function addInfo()
     {
-        if (!auth()->user()->can('footerinfo-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('footerinfo-create', 'admin-access');
 
         $this->validate([
             'name' => ['required','max:120','unique:footer_information'],
@@ -49,9 +50,7 @@ class AdminFooterInformationAddComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('footerinfo-create', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('footerinfo-create', 'admin-access');
 
         return view('livewire.admin.admin-footer-information-add-component')->layout('layouts.dashboard');
     }

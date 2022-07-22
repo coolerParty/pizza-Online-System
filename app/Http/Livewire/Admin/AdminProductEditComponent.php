@@ -9,10 +9,13 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Livewire\WithFileUploads;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
+
 
 class AdminProductEditComponent extends Component
 {
+    use AuthorizesRequests;
     use WithFileUploads;
     public $product_id;
     public $name;
@@ -67,10 +70,7 @@ class AdminProductEditComponent extends Component
 
     public function updateProduct()
     {
-
-        if (!auth()->user()->can('product-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('product-edit', 'admin-access');
 
         $this->validate([
             'name'              => ['required','max:150', Rule::unique('products')->ignore($this->product_id)],
@@ -121,9 +121,7 @@ class AdminProductEditComponent extends Component
 
     public function render()
     {
-        if (!auth()->user()->can('product-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('product-edit', 'admin-access');
 
         $categories = Category::select('id','name')->orderby('name','ASC')->get();
         return view('livewire.admin.admin-product-edit-component',['categories'=>$categories])->layout('layouts.dashboard');

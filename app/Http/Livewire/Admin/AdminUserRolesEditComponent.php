@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
 class AdminUserRolesEditComponent extends Component
 {
+    use AuthorizesRequests;
     public $user_id;
     public $name;
     public $userRoles = [];
@@ -34,9 +36,7 @@ class AdminUserRolesEditComponent extends Component
 
     public function updateUserRole()
     {
-        if (!auth()->user()->can('role-edit', 'admin-access')) {
-            abort(404);
-        }
+        $this->authorize('role-edit', 'admin-access');
 
         $this->validate([
             'userRoles' => 'required',
@@ -59,13 +59,13 @@ class AdminUserRolesEditComponent extends Component
 
     public function render()
     {
+        $this->authorize('role-edit', 'admin-access');
+
         if (auth()->user()->can('super-admin')) {
             $roles = Role::get();
         } else {
             $roles = Role::whereNotIn('name', ['super-admin'])->get();
         }
-
-
 
         return view('livewire.admin.admin-user-roles-edit-component', ['roles' => $roles])->layout('layouts.dashboard');
     }
